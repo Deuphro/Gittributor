@@ -5652,6 +5652,9 @@ duplicate/O wave1stripped, roi1
 duplicate/O wave2stripped, roi2
 roi0-=error1
 roi2=defmass(roi0)
+if(waveExists(wave3stripped))
+	duplicate/O wave3stripped, roi3
+endIf
 end
 
 ////introduit le 28 janvier 2014 pour la calibration à 2 points
@@ -19647,10 +19650,13 @@ string sFit=name+"_11chroma"
 wave Fitted=$sFit
 string sint="roi1"
 string smass="roi0"
+string sret="roi3"
 wave int=$sint
 wave mass=$smass
+wave ret=$sret
 extract/O Fitted,int,y==2 //&& Fitted!=0
 extract/O Fitted,mass,y==1 //&& Fitted!=0
+extract/O Fitted,ret, y==3
 Duplicate/O mass roi2
 wave roi0=$smass
 roi2=defmass(roi0)
@@ -19928,10 +19934,11 @@ end
 
 Function InitResGraph(nb)
 variable nb
-Make/O/T/N=(3) ResGraphTitle
+variable nItems=4
+Make/O/T/N=(nItems) ResGraphTitle
 ResGraphTitle={"Min. mass node","Vertices","Max. Int."}
-Make/O/D/N=(nb,3) ResGraphSel=0
-Make/O/T/N=(nb,3) ResGraphList="test"
+Make/O/D/N=(nb,nItems) ResGraphSel=0
+Make/O/T/N=(nb,nItems) ResGraphList="test"
 end
 
 function SetControlsGRAPHTTRIBUTOR(name)
@@ -19945,8 +19952,41 @@ variable width=V_right-V_left, height=V_bottom-V_top, nb=3
 PopupMenu popup1, win=$graphname,pos={0,49},bodyWidth=width,proc=PopMenuGraphVari,mode=30,popvalue=(name),value= #"replacestring(\"Molbag_\",wavelist(\"Molbag_*\",\";\",\"\"),\"\")"
 ListBox mollist,win=$graphname,pos={0,71},size={width,max(50,n*24)},labelBack=(47872,47872,47872),frame=0,listWave=VariatorList,selWave=VariatorSel,widths={15,75,75},userColumnResize= 0,special= {0,20,0}, proc=VariatorSelListAction
 ListBox treelist,win=$graphname,pos={0,71+max(50,n*24)},size={width,height-21-max(50,n*24)},mode=1,frame=0,titlewave=ResGraphTitle,listWave=ResGraphList,selWave=ResGraphSel,widths={25,25,25},userColumnResize= 0,proc=TreeListAction
-Button Forest, win=$graphname,pos={0,0}, size={width/nb,50}, proc=ButtonForest,title="Grow Forest"
+Button Forest, win=$graphname,pos={0,0}, size={width/nb,50/3}, proc=ButtonForest,title="Grow Forest"
+Button Reticles, win=$graphname,pos={0,50/3}, size={width/nb,50/3}, proc=ButtonReticles,title="Grow Reticles"
+Button Grids, win=$graphname,pos={0,2*50/3}, size={width/nb,50/3}, proc=ButtonGrids,title="Grow Grids"
 Button Vertice2Bag, win=$graphname, pos={0+width/nb,0}, size={width/nb,50}, proc=ButtonVertice2Bag, title="Forest to Bag"
+Button Locate, win=$graphname, pos={0+2*width/nb,0}, size={width/nb,50}, proc=ButtonLocate, title="From\rcurrent\rtarget"
+end
+
+Function ButtonLocate(ba)
+	STRUCT WMButtonAction &ba
+	switch(ba.eventcode)
+		case 2:
+			Locate()
+			break
+	endswitch
+	return 0
+end
+
+Function ButtonGrids(ba)
+	STRUCT WMButtonAction &ba
+	switch(ba.eventcode)
+		case 2:
+			GrowGrids()
+			break
+	endswitch
+	return 0
+end
+
+Function ButtonReticles(ba)
+	STRUCT WMButtonAction &ba
+	switch(ba.eventcode)
+		case 2:
+			GrowReticles()
+			break
+	endswitch
+	return 0
 end
 
 Function ButtonForest(ba)
@@ -19958,6 +19998,13 @@ Function ButtonForest(ba)
 	endswitch
 	return 0
 end
+
+Function Locate()
+	nvar inco
+	variable index=prochepic(inco,0)
+	Arbre2ROI(Parent_Obs,index)
+	PropagAttrib(Adja_Obs,wave0stripped,wave1stripped,index,"Propagation",Stds_Obs_Mol2add,Stds_Obs_charge2add)
+End
 
 Function ButtonVertice2Bag(ba)
 	STRUCT WMButtonAction &ba
@@ -20248,14 +20295,14 @@ variable bcut=bayesianCut(listepoids)
 //Statipoids[][0]=(mean(listepoids,0,x+2))/(x+2)
 //Statipoids[][1]=sqrt(variance(listepoids,0,x+3))/(x+3)
 //statipoids[][2]=Statipoids[x][0]-Statipoids[x][1]
-m=7000
+//m=7000
 for(k=0;k<m;k+=1)//&& statipoids[k][2]>0
 	model=stal*mean(meanpoids,0,k)
 	diff=(model[x]-meanpoids[x*k/stalsize])
 	residue[k]=(norm(diff))*k
 	if(residue[k]<residue[k-1])//k==bcut)//
 		print k, bcut
-		//k=m
+		k=m
 	endif
 	if(FindKruskal(col[k],Parent_Obs)!=FindKruskal(row[k],Parent_Obs) && max(degree[row[k]],degree[col[k]])<degmax)
 		AdjaKruskal[col[k]][row[k]]=Adja[col[k]][row[k]]
@@ -23441,6 +23488,77 @@ endfor
 return res
 end
 
-function externalization()
-	print "oui ça marche"
+function meanCurvature2D(lesx,lesy,std)//supposing lesx is sorted
+	wave lesx,lesy
+	variable std
+	variable n=dimsize(lesx,0)
+	variable currentClass=0
+	make/FREE/O/D/N=(n) marked=0,parent=x,class
+	variable k,i,j
+	variable slope=inf,winner=inf,minSlope=inf,curv
+	make/O/I/N=(3)/FREE triplet
+	make/O/D/N=(0) curvatures
+	for(k=0;k<n;k+=1)
+		if(1-marked[k])
+			for(i=0;i<n;i+=1)
+				if(1-marked[i] && abs((lesx[i]-lesx[k])-std)<0.25)
+					for(j=0;j<n;j+=1)
+						if(1-marked[j] && abs((lesx[j]-lesx[i])-std)<0.25)
+							triplet={k,i,j}
+							insertpoints 0,1,curvatures
+							curvatures[0]=abs(courbplan(triplet,lesx,lesy))
+						endIf
+					endFor
+				endif
+			endfor
+		endif
+	endfor
+	wavetransform zapNaNs curvatures
+	return mean(curvatures)
+end
+
+function curvatureClustering(lesx,lesy,std)//assuming lesx is sorted
+	wave lesx,lesy
+	variable std
+	variable n=dimsize(lesx,0)
+	MAKE/O/D/N=(n)/FREE classes=NaN, marked=0
+	variable currentClass=0
+	MAKE/O/I/N=3/FREE triplet, bestTriplet
+	variable k,i,j
+	variable minCurv=inf
+	variable curvature
+	variable thresh=meanCurvature2D(lesx,lesy,std)
+	for(k=0;k<n;k+=1)//on prend le plus faible en masse
+		if(1-marked[k])//qui ne soit pas marqué
+			//on trouve le segment le plus droit avec les deux noeuds immédiatement successif
+			minCurv=inf
+			for(i=k+1;i<n;i+=1)//on regarde le noeud d'après
+				if(1-marked[i] && abs((lesx[i]-lesx[k])-std)<0.25)//qui ne soit pas marqué et qui soit immédiatement successif
+					for(j=i+1;j<n;j+=1)//ainsi que le noeud d'encore après
+						if(1-marked[j] && abs((lesx[j]-lesx[i])-std)<0.25)//qui ne soit pas marqué et qui soit immédiatement successif
+							//On forme le triplet et on calcul la courbure
+							triplet={k,i,j}
+							curvature=abs(courbplan(triplet,lesx,lesy))
+							if(curvature<minCurv)
+								minCurv=curvature
+								bestTriplet=triplet[x]
+							endIf
+						endif
+					endfor
+					
+				endIf
+			endfor
+			if(minCurv<thresh)
+				marked[bestTriplet[0]]=1
+				marked[bestTriplet[1]]=1
+				classes[bestTriplet[0]]=currentClass
+				classes[bestTriplet[1]]=currentClass
+				classes[bestTriplet[2]]=currentClass
+				k=bestTriplet[1]-1
+				i=bestTriplet[2]-1
+			else
+				currentClass+=1
+			endIf
+		endif
+	endfor
 end
