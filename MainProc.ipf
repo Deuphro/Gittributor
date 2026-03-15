@@ -5601,14 +5601,41 @@ Window HiResCalMain() : Graph
 	SetVariable setvar1,valueBackColor=(65280,43520,0),value= calwidth
 	Button button1,pos={4,326},size={167,49},proc=ButtonProc_4,title="Correct mass"
 	Button button1,fColor=(65280,43520,0)
-	SetVariable setvar2,pos={5,256},size={218,16},title="Fit Polynomial with degree of liberty:"
+	SetVariable setvar2,pos={5,256},size={268,16},title="Fit Polynomial with degree of liberty:"
 	SetVariable setvar2,limits={3,10000,1},value= degreedelm
+	SetVariable setvar3,pos={5,300}, size={200,16},title="Mass to split around: ",limits={Wavemin(wave0stripped),wavemax(wave0stripped),0},value=massSplitCal, proc=SplitCalProc
 	//Button button2,pos={4,280},size={167,42},proc=ButtonProc_7,title="Load information from\rthe current molecule list"
 	//Button button2,fColor=(32768,65280,0)
 	PopupMenu popup1, win=HiResCalMain,pos={4,280},title="Use this list",bodywidth=0,popvalue="Calibrator", value= #"replacestring(\"Molbag_\",wavelist(\"Molbag_*\",\";\",\"\"),\"\")",proc=PopMenuProc_HiResCal
 	Button button3,pos={4,379},size={167,45},proc=ButtonProc_5,title="ROI 2 data"
 	Button button3,fColor=(65280,43520,0)
+	
 EndMacro
+
+Function SplitCalProc(sva) : SetVariableControl
+	STRUCT WMSetVariableAction &sva
+
+	switch( sva.eventCode )
+		case 1: // mouse up
+		case 2: // Enter key
+		case 3: // Live update
+			ControlInfo/W=HiResCalMain setvar2
+			variable degree=V_value
+			print degree
+			ControlInfo/W=HiResCalMain popup1
+			string scbag="Chargebag_"+S_value
+			string stbag="Ciblebag_"+S_value
+			wave chargebag=$scbag
+			wave ciblebag=$stbag
+			Duplicate/O/FREE chargebag classification
+			classification=ciblebag[x][1]>sva.dval
+			splitCalibration(S_value,classification,degree)
+		case -1: // control being killed
+			break
+	endswitch
+
+	return 0
+End
 
 Function PopMenuProc_HiResCal(pa) : PopupMenuControl
 	STRUCT WMPopupAction &pa
@@ -5630,7 +5657,7 @@ End
 function initiatecal()
 wave wave0stripped, pointconf
 variable errmes1, errmes2, errcalc1, errcalc2, A, B
-variable/G degreedelm
+variable/G degreedelm=3, massSplitCal
 duplicate/O wave0stripped error0 error1 
 make/O/N=0 centremassecrop, diffmcrop, fit_diffmcrop, pntserror, pntsmes
 errmes1=0+pointconf[0][0]-pointconf[1][0]
@@ -16751,7 +16778,7 @@ Make/FREE/O/T/N=(m2) eltzname
 wave/T elements
 insertpoints m1,m2, titles
 titles[m1,*]=elements[eltz[x-m1]]
-Make/FREE/O/N=(n,m1+m2) res
+Make/FREE/O/D/N=(n,m1+m2) res
 res[][0]=(ciblebag[x][1])
 res[][1]=(ciblebag[x][1]/(1-1e-6*ciblebag[x][3]))
 res[][2]=(ciblebag[x][3])
@@ -23093,8 +23120,8 @@ CurveFit/M=2/W=0 Sigmoid, classLab/X=lesmass/D
 Duplicate/O W_Coef SigCoef
 //corriger la masse de la donnée active
 wave wave0stripped
-Duplicate/O wave0stripped error
-error=(1-(SigCoef[0] + SigCoef[1]/(1+exp(-(wave0stripped[x]-SigCoef[2])/SigCoef[3]))))*poly(FitCoef0,wave0stripped[x])+(SigCoef[0] + SigCoef[1]/(1+exp(-(wave0stripped[x]-SigCoef[2])/SigCoef[3])))*poly(FitCoef1,wave0stripped[x])
+Duplicate/O wave0stripped error1
+error1=(1-(SigCoef[0] + SigCoef[1]/(1+exp(-(wave0stripped[x]-SigCoef[2])/SigCoef[3]))))*poly(FitCoef0,wave0stripped[x])+(SigCoef[0] + SigCoef[1]/(1+exp(-(wave0stripped[x]-SigCoef[2])/SigCoef[3])))*poly(FitCoef1,wave0stripped[x])
 appendtograph error vs wave0stripped
 modifygraph rgb(error)=(2,39321,1)
 end
