@@ -187,33 +187,58 @@ function updateSection(sectionId, data) {
 
 // Update generic section - handles basic text replacement
 function updateGenericSection(section, data) {
-    // Update all direct children text nodes
-    const children = section.children;
-    for (let i = 0; i < children.length; i++) {
-        const child = children[i];
-        
-        // Handle h2, h3, h4, p elements
-        if (child.tagName === 'H2' && data.title) {
-            child.textContent = data.title;
-        } else if (child.tagName === 'H3') {
-            // Try to find matching translation
-            const childId = child.id || child.textContent.toLowerCase().replace(/[^a-z0-9]/g, '_');
-            if (data[childId]) {
-                child.textContent = data[childId];
-            }
-        } else if (child.tagName === 'P' && data.content) {
-            child.textContent = data.content;
-        }
+    // Update section title
+    const h2 = section.querySelector('h2');
+    if (h2 && data.title) {
+        h2.textContent = data.title;
     }
     
-    // Update nested elements with class-based matching
-    const translatableElements = section.querySelectorAll('[data-i18n]');
-    translatableElements.forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (data[key]) {
-            el.textContent = data[key];
-        }
-    });
+    // Update all h3 elements
+    const h3s = section.querySelectorAll('h3');
+    if (data.subtitles && h3s.length > 0) {
+        h3s.forEach((h3, index) => {
+            if (data.subtitles[index]) {
+                h3.textContent = data.subtitles[index];
+            }
+        });
+    }
+    
+    // Update all paragraphs
+    const paragraphs = section.querySelectorAll('p');
+    if (data.paragraphs && paragraphs.length > 0) {
+        paragraphs.forEach((p, index) => {
+            if (data.paragraphs[index]) {
+                p.textContent = data.paragraphs[index];
+            }
+        });
+    }
+    
+    // Update all list items
+    const listItems = section.querySelectorAll('li');
+    if (data.list && listItems.length > 0) {
+        listItems.forEach((li, index) => {
+            if (data.list[index]) {
+                li.textContent = data.list[index];
+            }
+        });
+    }
+    
+    // Update steps
+    const steps = section.querySelectorAll('.step');
+    if (data.steps && steps.length > 0) {
+        steps.forEach((step, index) => {
+            if (data.steps[index]) {
+                const h4 = step.querySelector('h4');
+                const p = step.querySelector('p');
+                if (h4 && data.steps[index].title) {
+                    h4.textContent = data.steps[index].title;
+                }
+                if (p && data.steps[index].desc) {
+                    p.textContent = data.steps[index].desc;
+                }
+            }
+        });
+    }
 }
 
 // Update introduction section
