@@ -3,8 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATTRIBUTOR - Mass Spectrometry Analysis Software</title>
+    <title>ATTRIBUTOR - Advanced Mass Spectrometry Formula Attribution</title>
     <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --border-radius: 8px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -12,101 +25,107 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
             color: #333;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: #f8f9fa;
             min-height: 100vh;
-            padding: 20px;
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            box-shadow: var(--shadow);
         }
         
         header {
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             padding: 40px 30px;
             text-align: center;
         }
         
-        h1 {
+        header h1 {
             font-size: 2.5em;
+            font-weight: 300;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            letter-spacing: -1px;
         }
         
         .subtitle {
             font-size: 1.1em;
-            opacity: 0.9;
+            opacity: 0.95;
             font-weight: 300;
-        }
-        
-        .logo {
-            width: 120px;
-            height: 120px;
-            margin: 20px auto;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2em;
-            border: 3px solid rgba(255, 255, 255, 0.3);
         }
         
         main {
             padding: 40px;
         }
         
-        .description {
-            margin-bottom: 40px;
-            padding: 0 20px;
+        section {
+            margin-bottom: 50px;
         }
         
-        .description h2 {
-            color: #2c3e50;
+        h2 {
+            color: var(--primary);
+            font-size: 1.8em;
             margin-bottom: 20px;
-            font-size: 1.5em;
-            border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary);
+            font-weight: 500;
         }
         
-        .description p {
+        h3 {
+            color: var(--primary);
+            font-size: 1.3em;
+            margin: 25px 0 15px 0;
+            font-weight: 500;
+        }
+        
+        h4 {
+            color: var(--secondary);
+            font-size: 1.1em;
+            margin: 20px 0 10px 0;
+        }
+        
+        p {
             margin-bottom: 15px;
             color: #555;
+            text-align: justify;
         }
         
-        .features {
+        .section-intro {
+            font-size: 1.05em;
+            color: #444;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+        
+        .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
-            margin: 40px 0;
+            margin: 30px 0;
         }
         
         .feature-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: white;
             padding: 25px;
-            border-radius: 10px;
-            border-left: 5px solid #3498db;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--secondary);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
         }
         
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
         }
         
         .feature-card h3 {
-            color: #2c3e50;
+            color: var(--primary);
             margin-bottom: 15px;
-            font-size: 1.3em;
         }
         
         .feature-card ul {
@@ -119,55 +138,100 @@
             padding-left: 25px;
             position: relative;
             color: #555;
+            border-left: 2px solid transparent;
         }
         
         .feature-card li:before {
-            content: "✓";
-            color: #27ae60;
-            font-weight: bold;
+            content: "";
             position: absolute;
             left: 0;
+            top: 12px;
+            width: 12px;
+            height: 2px;
+            background: var(--secondary);
         }
         
-        .download-section {
+        .algorithm-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .algorithm-box h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .algorithm-box .code {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 12px 15px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        
+        .math {
+            font-family: 'Cambria Math', 'Times New Roman', serif;
             background: #f8f9fa;
-            padding: 30px;
-            border-radius: 10px;
-            margin: 40px 0;
-            text-align: center;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 1.05em;
         }
         
-        .download-section h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
+        .window-card {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         
-        .download-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
+        .window-card h4 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        
+        .window-purpose {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .window-features {
+            margin-left: 20px;
+        }
+        
+        .window-features li {
+            margin: 5px 0;
+            color: #555;
         }
         
         .btn {
             display: inline-block;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--secondary) 0%, #2980b9 100%);
             color: white;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             font-weight: 600;
-            font-size: 1.1em;
+            font-size: 1em;
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
             background: linear-gradient(135deg, #2980b9 0%, #1f618d 100%);
         }
         
@@ -175,73 +239,78 @@
             background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
         }
         
-        .btn-secondary:hover {
-            background: linear-gradient(135deg, #7f8c8d 0%, #666 100%);
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
         }
         
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .file-info {
-            margin-top: 15px;
-            font-size: 0.9em;
-            color: #7f8c8d;
-        }
-        
-        .requirements {
+        .download-info {
             background: #fff3cd;
             border: 1px solid #ffc107;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 30px 0;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
         }
         
-        .requirements h3 {
+        .download-info h4 {
             color: #856404;
-            margin-bottom: 15px;
-        }
-        
-        .requirements ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        
-        .requirements li {
-            padding: 8px 0;
-            padding-left: 25px;
-            position: relative;
-            color: #7f8c8d;
-        }
-        
-        .requirements li:before {
-            content: "!";
-            color: #ffc107;
-            font-weight: bold;
-            position: absolute;
-            left: 0;
+            margin-bottom: 10px;
         }
         
         .command-box {
             background: #2c3e50;
             color: #ecf0f1;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
             font-family: 'Consolas', 'Courier New', monospace;
             margin: 15px 0;
-            overflow-x: auto;
+            font-size: 0.95em;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #fffde7 0%, #fff9c4 100%);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        
+        .math-note {
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        .screenshot-ref {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        
+        .screenshot-ref h4 {
+            color: #0d47a1;
+            margin-bottom: 10px;
+        }
+        
+        .screenshot-ref p {
+            color: #555;
+            margin: 5px 0;
         }
         
         footer {
-            background: #2c3e50;
+            background: var(--primary);
             color: white;
             text-align: center;
-            padding: 20px;
-            margin-top: 40px;
+            padding: 25px;
+            margin-top: 50px;
         }
         
         footer a {
-            color: #3498db;
+            color: var(--secondary);
             text-decoration: none;
         }
         
@@ -249,37 +318,55 @@
             text-decoration: underline;
         }
         
-        .official-link {
-            display: block;
+        .footer-divider {
+            margin: 15px 0;
+            padding: 15px 0;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .tip {
+            background: #e8f5e9;
+            border-left: 4px solid var(--success);
+            padding: 15px 20px;
             margin: 20px 0;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            transition: background 0.3s ease;
+            border-radius: var(--border-radius);
         }
         
-        .official-link:hover {
-            background: rgba(255, 255, 255, 0.2);
+        .tip h4 {
+            color: #1b5e20;
+            margin-bottom: 10px;
         }
         
-        .author-info {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 0.9em;
-            opacity: 0.8;
+        .warning {
+            background: #fff3e0;
+            border-left: 4px solid var(--warning);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: var(--border-radius);
+        }
+        
+        .warning h4 {
+            color: #e65100;
+            margin-bottom: 10px;
+        }
+        
+        .code-comment {
+            color: #888;
+            font-size: 0.85em;
+            margin-top: 5px;
+            font-style: italic;
         }
         
         @media (max-width: 768px) {
-            h1 {
+            header h1 {
                 font-size: 1.8em;
             }
             
-            .features {
+            .feature-grid {
                 grid-template-columns: 1fr;
             }
             
-            .download-buttons {
+            .btn-group {
                 flex-direction: column;
                 align-items: center;
             }
@@ -288,19 +375,23 @@
                 width: 80%;
                 max-width: 400px;
             }
+            
+            main {
+                padding: 25px;
+            }
         }
         
         @media (max-width: 480px) {
-            main {
-                padding: 20px;
-            }
-            
             header {
                 padding: 20px;
             }
             
-            h1 {
+            header h1 {
                 font-size: 1.5em;
+            }
+            
+            .subtitle {
+                font-size: 1em;
             }
         }
     </style>
@@ -308,133 +399,520 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">ATTRIBUTOR</div>
             <h1>ATTRIBUTOR</h1>
-            <p class="subtitle">Advanced Mass Spectrometry Formula Attribution Tool</p>
+            <p class="subtitle">Mass Spectrometry Molecular Formula Attribution & Isotopic Pattern Analysis</p>
         </header>
         
         <main>
-            <section class="description">
+            <!-- OVERVIEW -->
+            <section id="overview">
                 <h2>Overview</h2>
-                <p>
-                    <strong>ATTRIBUTOR</strong> is a specialized software tool developed for mass spectrometry data analysis, 
-                    particularly focused on <strong>molecular formula attribution</strong> from high-resolution mass spectra. 
-                    It enables researchers to identify and validate molecular compositions by analyzing isotopic patterns 
-                    and mass-to-charge (m/z) ratios.
+                <p class="section-intro">
+                    ATTRIBUTOR is a sophisticated Igor Pro-based software suite for high-resolution mass spectrometry data analysis, 
+                    specializing in molecular formula attribution through advanced isotopic pattern recognition and statistical methods.
                 </p>
                 <p>
-                    Originally developed at <strong>IPAG (Institut de Planétologie et d'Astrophysique de Grenoble)</strong> 
-                    by François-Régis ORTHOUS-DAUNAY, ATTRIBUTOR is designed to assist scientists in astrophysics, 
-                    cosmochemistry, and analytical chemistry in their research activities.
+                    Developed by <strong>François-Régis ORTHOUS-DAUNAY</strong> at <strong>IPAG (CNRS/UJF Grenoble)</strong>, 
+                    ATTRIBUTOR integrates multiple analytical approaches: combinatorial formula generation, 
+                    multinomial isotopic distribution simulation, Hough transform pattern detection, and 
+                    Kruskal-based clustering for agnostic pattern discovery.
                 </p>
             </section>
-            
-            <section class="features">
-                <div class="feature-card">
-                    <h3>Molecular Formula Builder</h3>
-                    <ul>
-                        <li>Interactive element selection interface</li>
-                        <li>Support for all periodic table elements</li>
-                        <li>Visual representation of molecular composition</li>
-                        <li>Charge state management (+/-)</li>
+
+            <!-- WINDOWS -->
+            <section id="windows">
+                <h2>Graphical Interface Windows</h2>
+                <p class="section-intro">
+                    ATTRIBUTOR operates through multiple coordinated windows, each serving a specific purpose in the mass spectrometry analysis workflow.
+                </p>
+
+                <div class="window-card">
+                    <h4>📊 Elaborateur (Main Analysis Window)</h4>
+                    <p class="window-purpose">Primary spectrum visualization and theoretical vs. experimental comparison</p>
+                    <ul class="window-features">
+                        <li><strong>Purpose:</strong> Display experimental mass spectrum (wave1stripped) alongside simulated isotopic patterns</li>
+                        <li><strong>Key Features:</strong> Logarithmic intensity scaling, mass defect visualization, error bars</li>
+                        <li><strong>Controls:</strong> Width, Shape, Asymmetry parameters for profile fitting</li>
+                        <li><strong>Traces:</strong> Multiple overlaid traces including data, simulation, and DMVM results</li>
+                        <li><strong>Color Coding:</strong> Data (grey), Simulation (red), DMVM (teal), Inco (purple)</li>
                     </ul>
                 </div>
-                
-                <div class="feature-card">
-                    <h3>Isotopic Pattern Simulation</h3>
-                    <ul>
-                        <li>Calculate isotopic distributions</li>
-                        <li>Generate theoretical mass spectra</li>
-                        <li>Multi-isotope combination analysis</li>
-                        <li>Probability-weighted isotopic patterns</li>
+
+                <div class="window-card">
+                    <h4>🔬 Agregateur (Aggregation & Multi-Component Analysis)</h4>
+                    <p class="window-purpose">Multi-molecular formula visualization and comparison with experimental data</p>
+                    <ul class="window-features">
+                        <li><strong>Purpose:</strong> Aggregate multiple molecular formulas and compare with observed spectrum</li>
+                        <li><strong>Features:</strong> Tree-based representation, top bright masses display, ROI selection</li>
+                        <li><strong>Modes:</strong> Sticks (discrete peaks) or Profile (continuous) visualization</li>
+                        <li><strong>Interactivity:</strong> Logscale toggle, top N brightest mass display control</li>
+                        <li><strong>Tagging:</strong> Dynamic labeling of molecular formulas on the spectrum</li>
                     </ul>
                 </div>
-                
-                <div class="feature-card">
-                    <h3>Spectral Analysis Tools</h3>
-                    <ul>
-                        <li>Data import and visualization</li>
-                        <li>Peak detection and identification</li>
-                        <li>Noise filtering algorithms</li>
-                        <li>Comparison between theoretical and experimental spectra</li>
+
+                <div class="window-card">
+                    <h4>🎯 DMVM (Defect Mass vs Mass Analysis)</h4>
+                    <p class="window-purpose">Mass defect analysis for pattern recognition and validation</p>
+                    <ul class="window-features">
+                        <li><strong>Purpose:</strong> Visualize mass defect (m/z - integer mass) to identify isotopic families</li>
+                        <li><strong>Axis:</strong> X = m/z, Y = Mass defect (with mirror symmetry)</li>
+                        <li><strong>Traces:</strong> DMVM simulation, ROI selection, theoretical tree masses</li>
+                        <li><strong>Tools:</strong> Depth of tree control, segment length measurement, intensity threshold</li>
+                        <li><strong>Clustering:</strong> Visual representation of molecular families in defect space</li>
                     </ul>
                 </div>
-                
-                <div class="feature-card">
-                    <h3>Advanced Visualization</h3>
-                    <ul>
-                        <li>Multi-panel graph displays</li>
-                        <li>Logarithmic and linear scaling</li>
-                        <li>Customizable graph parameters</li>
-                        <li>Export and save capabilities</li>
+
+                <div class="window-card">
+                    <h4>🔧 Panel (Element Selection Interface)</h4>
+                    <p class="window-purpose">Interactive periodic table for molecular formula construction</p>
+                    <ul class="window-features">
+                        <li><strong>Layout:</strong> Organized by element groups with color coding (H=dark grey, N=green, O=red, S=yellow)</li>
+                        <li><strong>Functionality:</strong> Click to add/subtract element counts, supports all 114 elements</li>
+                        <li><strong>Charge Control:</strong> Positive/negative ion state management</li>
+                        <li><strong>Real-time Update:</strong> Immediate formula generation and simulation</li>
+                    </ul>
+                </div>
+
+                <div class="window-card">
+                    <h4>📈 Graphattribution (Advanced Formula Analysis)</h4>
+                    <p class="window-purpose">Kruskal-based clustering and cost function optimization for formula ranking</p>
+                    <ul class="window-features">
+                        <li><strong>Purpose:</strong> Evaluate and rank molecular formulas based on spectral matching</li>
+                        <li><strong>Metrics:</strong> Target mass, relative mass bias, intensity, stoichiometry, cost function</li>
+                        <li><strong>Visualization:</strong> Scatter plots with selectable X/Y axes</li>
+                        <li><strong>Clustering:</strong> Tree-based hierarchical organization of formulas</li>
+                        <li><strong>Operation Window:</strong> Access to advanced operations (DBE, Mass Zuba, etc.)</li>
+                    </ul>
+                </div>
+
+                <div class="window-card">
+                    <h4>🔍 AdvMolManPanel (Advanced Molecular Manager)</h4>
+                    <p class="window-purpose">Comprehensive molecular formula management and analysis workspace</p>
+                    <ul class="window-features">
+                        <li><strong>Components:</strong> Panel (formula list), Graph (visualization), Oper (operations)</li>
+                        <li><strong>Formula List:</strong> Tabular display with Name, Mass, ppm error, Cost function</li>
+                        <li><strong>Selection Modes:</strong> Current, Decomposeur, Propagation, Tree (225 propositions), Variator</li>
+                        <li><strong>Graph Options:</strong> Stoichiometry, Target Mass, Intensity, Relative mass bias, Y=f(X), Cost function</li>
+                        <li><strong>Operations:</strong> Clustering, Ratio Plot, K-naries, Partitioning with selectable parameters</li>
                     </ul>
                 </div>
             </section>
-            
-            <section class="download-section">
+
+            <!-- CORE ALGORITHMS -->
+            <section id="algorithms">
+                <h2>Core Algorithms</h2>
+
+                <div class="algorithm-box">
+                    <h3>🧮 TrouveMass: Brute Formula Attribution</h3>
+                    <p>
+                        The <span class="highlight">trouvemass()</span> function implements a combinatorial search algorithm for 
+                        finding all possible molecular compositions that match a given mass within a specified tolerance.
+                    </p>
+                    <h4>Mathematical Foundation</h4>
+                    <p>
+                        Given a target mass <span class="math">m<sub>target</sub></span> and a set of atomic masses <span class="math">{p<sub>0</sub>, p<sub>1</sub>, ..., p<sub>n-1</sub>}</span>,
+                        the algorithm solves the integer Diophantine equation:
+                    </p>
+                    <div class="code">
+                        m_target ≈ Σ (c_i × p_i)  where c_i ∈ ℕ
+                    </div>
+                    <p>
+                        <strong>Implementation Strategy:</strong>
+                    </p>
+                    <ul>
+                        <li><strong>Productive Cribbling:</strong> Uses cumulative products to generate all combinations exhaustively</li>
+                        <li><span class="code">prod[k] = prod[k-1] × (maxperm[k-1] + 1)</span> - stretches the solution space</li>
+                        <li><strong>Degree of Freedom:</strong> The lightest element adjusts to fill mass gaps</li>
+                        <li><strong>Mass Tolerance:</strong> Configurable parameter (default: half the lightest element mass)</li>
+                        <li><strong>Optimization:</strong> Skips guaranteed overflow combinations to improve efficiency</li>
+                    </ul>
+                    <p class="math-note">
+                        <em>Note:</em> The algorithm ensures <span class="math">|m_calculated - m_target| < p<sub>min</sub>/2</span> where p<sub>min</sub> is the lightest element mass.
+                    </p>
+                </div>
+
+                <div class="algorithm-box">
+                    <h3>🎲 Multinomial Isotopic Simulation Engine</h3>
+                    <p>
+                        The <span class="highlight">genestringmol()</span> → <span class="highlight">generesimu()</span> → <span class="highlight">choisylecrible()</span> 
+                        pipeline implements a multinomial probability distribution for isotopic pattern simulation.
+                    </p>
+                    <h4>Multinomial Framework</h4>
+                    <p>
+                        For each element with <span class="math">k</span> isotopes, the probability of a specific isotopic combination 
+                        <span class="math">{n<sub>0</sub>, n<sub>1</sub>, ..., n<sub>k-1</sub>}</span> is:
+                    </p>
+                    <div class="code">
+                        P = [Π C(n_i, a_i) × p_i^n_i] where C(n,a) = binomial coefficient
+                    </div>
+                    <h4>Implementation Details</h4>
+                    <ul>
+                        <li><strong>Crible Functions (1-10):</strong> Handle elements with 1 to 10 isotopes using nested loops</li>
+                        <li><strong>choisylecrible(e, Z):</strong> Selects appropriate sieve based on isotope count</li>
+                        <li><strong>Probability Threshold:</strong> <span class="code">kriter</span> parameter filters low-probability combinations (0=all, 1=most probable only)</li>
+                        <li><strong>Mass Calculation:</strong> Weighted sum of isotopic masses with natural abundances</li>
+                        <li><strong>Charge Correction:</strong> Electron mass adjustment (0.00054857990946 u)</li>
+                    </ul>
+                    <h4>genestringmol() Workflow</h4>
+                    <ol>
+                        <li>Iterates through all 114 elements</li>
+                        <li>Builds molecular formula string with counts: <span class="code">H\B5\MC\B10\M</span></li>
+                        <li>Calls <span class="code">choisylecrible()</span> for each present element</li>
+                        <li>Generates isotopic combinations via <span class="code">cribleN()</span></li>
+                        <li>Executes <span class="code">generesimu()</span> to create final spectrum</li>
+                        <li>Updates <span class="code">simu_mass</span> and <span class="code">simu_proba</span> waves</li>
+                        <li>Scales to match experimental data intensity</li>
+                    </ol>
+                    <p class="code-comment">
+                        // The comment in code: "kriter est le ratio minimum d'une probabilité isotopique"
+                    </p>
+                </div>
+
+                <div class="algorithm-box">
+                    <h3>🌳 Kruskal4Mass: Minimum Spanning Tree Clustering</h3>
+                    <p>
+                        The <span class="highlight">kruskal4mass()</span> function implements a modified Kruskal's algorithm 
+                        for clustering mass spectrometry features based on relationships and weights.
+                    </p>
+                    <h4>Algorithm Overview</h4>
+                    <ul>
+                        <li><strong>Input:</strong> Observation matrix (obs), adjacency matrix (Adja), weights (Poids), parent tracking</li>
+                        <li><strong>Process:</strong> Sorts edges by weight, applies union-find to build minimum spanning tree</li>
+                        <li><strong>Features:</strong>
+                            <ul>
+                                <li><span class="code">FindKruskal(k, parent)</span> - Recursive parent finding with path compression</li>
+                                <li><span class="code">unionKruskal(a, b, parent)</span> - Union operation for tree building</li>
+                                <li><span class="code">bayesianCut()</span> - Statistical threshold determination</li>
+                                <li>Degree-constrained merging (max degree parameter)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Output:</strong> Adjacency matrix representing clustered features</li>
+                    </ul>
+                    <h4>Application in ATTRIBUTOR</h4>
+                    <p>
+                        Used in <span class="highlight">graphttribution</span> for organizing molecular formulas into 
+                        hierarchical clusters based on mass relationships and spectral similarity.
+                    </p>
+                </div>
+            </section>
+
+            <!-- HOUGH TRANSFORM -->
+            <section id="hough">
+                <h2>Hough Transform Pattern Detection</h2>
+                <p class="section-intro">
+                    ATTRIBUTOR implements the Hough Transform for <strong>agnostic pattern detection</strong> - identifying molecular 
+                    families without prior knowledge of their composition.
+                </p>
+
+                <div class="algorithm-box">
+                    <h3>🎯 Hough Transform Theory</h3>
+                    <p>
+                        The Hough Transform is a feature extraction technique that detects patterns by transforming 
+                        data points into a parameter space where patterns become peaks.
+                    </p>
+                    <h4>Implementation in ATTRIBUTOR</h4>
+                    <ul>
+                        <li><strong>NewHoughTransform(masse, minmax, reso):</strong>
+                            <ul>
+                                <li>Creates a 2D accumulator array (HoughMap) of size <span class="math">reso × reso</span></li>
+                                <li>Maps each (m/z, intensity) point to parameter space</li>
+                                <li>Accumulates votes for potential pattern centers</li>
+                            </ul>
+                        </li>
+                        <li><strong>Hough Field Functions:</strong>
+                            <ul>
+                                <li><span class="code">HoughField(w, x, y)</span> - 2D Hough field fitting function</li>
+                                <li><span class="code">MultiHoughField(w, x, y)</span> - Multi-dimensional extension</li>
+                            </ul>
+                        </li>
+                        <li><strong>NewHoughSieve(nomdebag, prof):</strong>
+                            <ul>
+                                <li>Generates all possible molecular formulas from a bag</li>
+                                <li>Creates Hough space representations</li>
+                                <li>Filters based on mass defect and probability</li>
+                                <li>Applies similarity scoring between formulas</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h4>Mathematical Formulation</h4>
+                    <p>
+                        For a molecular formula with atomic counts <span class="math">{c<sub>0</sub>, c<sub>1</sub>, ..., c<sub>n-1</sub>}</span> and atomic masses 
+                        <span class="math">{m<sub>0</sub>, m<sub>1</sub>, ..., m<sub>n-1</sub>}</span>:
+                    </p>
+                    <div class="code">
+                        HoughMap[x][y] += 1  where x = ScaleToIndex(mass), y = ScaleToIndex(probability)
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <h4>✨ Why Hough Transform?</h4>
+                    <p>
+                        The Hough Transform excels at detecting <strong>linear patterns</strong> in parameter space. 
+                        In mass spectrometry, molecular families (homologous series, isotopic distributions) 
+                        appear as linear sequences in m/z vs. mass defect space. The transform identifies these 
+                        patterns <strong>without knowing the formula in advance</strong>, making it truly agnostic.
+                    </p>
+                </div>
+            </section>
+
+            <!-- DMVM -->
+            <section id="dmvm">
+                <h2>DMVM: Defect Mass vs Mass Pattern Analysis</h2>
+                <p class="section-intro">
+                    The DMVM window implements a unique approach to pattern recognition by analyzing 
+                    mass defect as a function of nominal mass.
+                </p>
+
+                <div class="algorithm-box">
+                    <h3>📊 Mass Defect Concept</h3>
+                    <p>
+                        Mass defect is defined as the difference between the exact monoisotopic mass and the 
+                        nearest integer mass:
+                    </p>
+                    <div class="code">
+                        mass_defect = exact_mass - round(exact_mass)
+                    </div>
+                    <p>
+                        This value is particularly informative for identifying:
+                    </p>
+                    <ul>
+                        <li><strong>Isotopic families:</strong> Elements with specific isotope patterns (Cl, Br, S)</li>
+                        <li><strong>Heteroatom content:</strong> Nitrogen, oxygen, sulfur containing compounds</li>
+                        <li><strong>Homologous series:</strong> CH<sub>2</sub> series in hydrocarbons, CO<sub>2</sub> in organics</li>
+                        <li><strong>Charge states:</strong> +1, +2, -1 ions appear at characteristic defect positions</li>
+                    </ul>
+                    <h4>updateDistanceDMVM() Function</h4>
+                    <p>
+                        Calculates distances in defect space for pattern matching:
+                    </p>
+                    <div class="code">
+                        distance = f(mass_defect, nominal_mass)
+                    </div>
+                    <ul>
+                        <li>Used for matching theoretical patterns to experimental data</li>
+                        <li>Enables visualization of molecular families as clusters in defect space</li>
+                        <li>Supports both stick (discrete) and profile (continuous) display modes</li>
+                    </ul>
+                </div>
+
+                <div class="screenshot-ref">
+                    <h4>🖼️ As Seen in Screenshot</h4>
+                    <p>
+                        The DMVM window displays:
+                    </p>
+                    <ul>
+                        <li><strong>Primary Trace:</strong> <span class="code">simu_probadm vs simu_mass</span> - theoretical mass defect pattern</li>
+                        <li><strong>Experimental:</strong> <span class="code">wave2stripped vs wave0stripped</span> - observed spectrum</li>
+                        <li><strong>ROI:</strong> Region of interest selection for focused analysis</li>
+                        <li><strong>Tree Masses:</strong> <span class="code">defmasstree vs tree</span> - hierarchical mass relationships</li>
+                        <li><strong>Inco Points:</strong> <span class="code">incoxdm vs incox</span> - intensity-coded markers</li>
+                    </ul>
+                </div>
+
+                <div class="tip">
+                    <h4>🎯 Pattern Agnostic Detection</h4>
+                    <p>
+                        The combination of <strong>DMVM + Hough Transform</strong> enables ATTRIBUTOR to:
+                    </p>
+                    <ol>
+                        <li>Detect <strong>unknown molecular families</strong> without formula knowledge</li>
+                        <li>Identify <strong>isotopic clusters</strong> (e.g., <sup>35</sup>Cl vs <sup>37</sup>Cl patterns)</li>
+                        <li>Discover <strong>homologous series</strong> in complex mixtures</li>
+                        <li>Validate <strong>formula attributions</strong> through pattern matching</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- ADVMOLMAN -->
+            <section id="advmolman">
+                <h2>AdvMolManPanel: Advanced Molecular Management</h2>
+                <p class="section-intro">
+                    The Advanced Molecular Manager is a comprehensive workspace for managing, analyzing, 
+                    and comparing multiple molecular formulas and their spectral signatures.
+                </p>
+
+                <div class="window-card">
+                    <h4>📋 Panel Component (AdvMolManPanelN)</h4>
+                    <p class="window-purpose">Formula selection and list management</p>
+                    <ul class="window-features">
+                        <li><strong>Formula List:</strong> Tabular display with columns: Name, Mass, dppm (mass error in ppm), Cost function</li>
+                        <li><strong>Selection Groups:</strong>
+                            <ul>
+                                <li><strong>Current:</strong> Active working set (2 formulas)</li>
+                                <li><strong>Decomposeur:</strong> Decomposition analysis (4 formulas)</li>
+                                <li><strong>Propagations:</strong> Propagation results (0 formulas)</li>
+                                <li><strong>Factors:</strong> Factor analysis (6 formulas)</li>
+                                <li><strong>Propositions:</strong> Main proposition list (225 formulas)</li>
+                                <li><strong>Variator:</strong> Variation analysis (6 formulas)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Interactivity:</strong> Checkbox selection, highlight active formulas</li>
+                    </ul>
+                </div>
+
+                <div class="window-card">
+                    <h4>📊 Graph Component (AdvMolManGraphN)</h4>
+                    <p class="window-purpose">Multi-dimensional visualization and comparison</p>
+                    <ul class="window-features">
+                        <li><strong>Axis Selection:</strong>
+                            <ul>
+                                <li><strong>X-axis:</strong> Stoichiometry, Target Mass, Intensity, Relative mass bias, Y=f(X), Cost function</li>
+                                <li><strong>Y-axis:</strong> Same options plus "vs" comparison mode</li>
+                            </ul>
+                        </li>
+                        <li><strong>Display Modes:</strong> Scatter plots with color coding by category</li>
+                        <li><strong>Overlay:</strong> Multiple formula traces on same axes</li>
+                        <li><strong>Interactive:</strong> Click to select, drag to zoom, double-click for details</li>
+                    </ul>
+                    <h4 style="margin-top: 15px;">As Shown in Screenshot:</h4>
+                    <ul class="window-features">
+                        <li><strong>Plot Type:</strong> Ratio Tree Oper0 vs Ratio Tree Oper0</li>
+                        <li><strong>Markers:</strong> Different shapes for each tree/molecule bag</li>
+                        <li><strong>Color Coding:</strong> Red circles, green circles, blue circles, purple squares</li>
+                        <li><strong>X-axis:</strong> Mass (150-300 m/z range)</li>
+                        <li><strong>Y-axis:</strong> 1+C+N/2-H/2 (stoichiometric ratio)</li>
+                    </ul>
+                </div>
+
+                <div class="window-card">
+                    <h4>⚙️ Oper Component (AdvMolManOperN)</h4>
+                    <p class="window-purpose">Advanced operations and analysis tools</p>
+                    <ul class="window-features">
+                        <li><strong>Operation Types:</strong>
+                            <ul>
+                                <li><strong>Clustering:</strong> Group formulas by similarity</li>
+                                <li><strong>Ratio Plot:</strong> Visualize stoichiometric ratios</li>
+                                <li><strong>K-naries:</strong> K-dimensional analysis</li>
+                                <li><strong>Partitioning:</strong> Divide into subsets based on criteria</li>
+                            </ul>
+                        </li>
+                        <li><strong>Parameters:</strong> DBE, Mass Zuba, Meth (methylation), etc.</li>
+                        <li><strong>Tree Display:</strong> Hierarchical relationship visualization</li>
+                        <li><strong>Cost Function:</strong> Quantitative measure of formula quality</li>
+                    </ul>
+                </div>
+
+                <div class="algorithm-box">
+                    <h3>🔗 Integration Workflow</h3>
+                    <p>
+                        The three components work together seamlessly:
+                    </p>
+                    <ol>
+                        <li><strong>Panel:</strong> Select formulas from proposition list</li>
+                        <li><strong>Graph:</strong> Visualize relationships and patterns</li>
+                        <li><strong>Oper:</strong> Perform advanced operations on selection</li>
+                        <li><strong>Sync:</strong> All components update simultaneously on changes</li>
+                    </ol>
+                    <p>
+                        <strong>Hook System:</strong> Event-driven updates via <span class="code">AdvMolManPanelHook()</span>, 
+                        <span class="code">AdvMolManGraphHook()</span>, <span class="code">AdvMolManOperHook()</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- SCREENSHOT EXPLANATION -->
+            <section id="screenshot">
+                <h2>Screenshot Analysis</h2>
+                <p class="section-intro">
+                    The provided screenshot shows three coordinated AdvMolMan windows working together.
+                </p>
+
+                <div class="window-card">
+                    <h4>Left: AdvMolManPanel0</h4>
+                    <p><strong>Showing:</strong> Tree propositions with 225 formulas</p>
+                    <p><strong>Columns:</strong> C (Target), bias (ppm), Intensity, Cost Func., Y</p>
+                    <p><strong>Selected Formulas:</strong></p>
+                    <ul class="window-features">
+                        <li>H<sub>10</sub>C<sub>5</sub>N<sub>1</sub>O<sub>1</sub><sup>+</sup> - Mass 150.03, bias -1.8896 ppm, Intensity 26112</li>
+                        <li>H<sub>12</sub>N<sub>1</sub>O<sub>2</sub><sup>+</sup> - Mass 150.03, bias -1.2754e+05 ppm, Intensity 26112</li>
+                        <li>H<sub>8</sub>C<sub>5</sub>N<sub>1</sub>O<sub>2</sub><sup>+</sup> - Mass 150.03, bias -8.6749e+06 ppm, Intensity 26112</li>
+                        <li>... (and 222 more)</li>
+                    </ul>
+                    <p><strong>Interpretation:</strong> Ranked list of molecular formulas matching observed peaks, sorted by cost function</p>
+                </div>
+
+                <div class="window-card">
+                    <h4>Center: AdvMolManGraph0</h4>
+                    <p><strong>Display:</strong> Ciblebag_Tree vs Ciblebag_Tree (self-comparison)</p>
+                    <p><strong>Plot:</strong> Relative mass bias vs Target Mass</p>
+                    <ul class="window-features">
+                        <li><strong>Markers:</strong> Multiple tree representations with distinct colors</li>
+                        <li><strong>Pattern:</strong> Diagonal clustering showing mass relationships</li>
+                        <li><strong>X-range:</strong> 160-300 m/z</li>
+                        <li><strong>Y-range:</strong> -1.6 to -0.4 (relative bias)</li>
+                        <li><strong>Purpose:</strong> Visualize how formulas relate to each other in mass-bias space</li>
+                    </ul>
+                </div>
+
+                <div class="window-card">
+                    <h4>Right: AdvMolManOper0</h4>
+                    <p><strong>Display:</strong> RatioY (1+C+N/2-H/2) vs Mass</p>
+                    <p><strong>Showing:</strong> Clustering, Ratio Plot, K-naries, Partitioning tabs</p>
+                    <ul class="window-features">
+                        <li><strong>X-axis:</strong> Mass (160-300)</li>
+                        <li><strong>Y-axis:</strong> 1+C+N/2-H/2 (stoichiometric descriptor)</li>
+                        <li><strong>Data Points:</strong> Red circles clustered at various mass values</li>
+                        <li><strong>Pattern:</strong> Horizontal lines indicating constant stoichiometric ratio</li>
+                        <li><strong>Tree Checkbox:</strong> Enabled, showing tree-based organization</li>
+                    </ul>
+                    <p><strong>Purpose:</strong> Identify molecular families through stoichiometric relationships</p>
+                </div>
+
+                <div class="tip">
+                    <h4>🔍 What the Screenshot Reveals</h4>
+                    <p>
+                        This configuration demonstrates ATTRIBUTOR's power in:
+                    </p>
+                    <ol>
+                        <li><strong>Formula Generation:</strong> 225+ molecular formulas generated for mass range</li>
+                        <li><strong>Pattern Recognition:</strong> Clustering by both mass and stoichiometry</li>
+                        <li><strong>Multi-criteria Analysis:</strong> Simultaneous consideration of mass, intensity, bias, cost</li>
+                        <li><strong>Visual Correlation:</strong> Cross-window synchronization for comprehensive analysis</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- DOWNLOADS -->
+            <section id="download">
                 <h2>Download ATTRIBUTOR</h2>
-                <p>Get started with ATTRIBUTOR by downloading the required files below.</p>
-                
-                <div class="download-buttons">
-                    <a href="ATTRIBUTOR%202022.pxp" class="btn" download>Download .pxp File</a>
-                    <a href="MainProc.ipf" class="btn" download>Download .ipf File</a>
+                <p class="section-intro">
+                    Get started with ATTRIBUTOR by downloading the required files.
+                </p>
+                <div class="btn-group">
+                    <a href="ATTRIBUTOR%202022.pxp" class="btn" download>Download .pxp File (57.3 MB)</a>
+                    <a href="MainProc.ipf" class="btn" download>Download .ipf File (831 KB)</a>
                 </div>
-                
-                <div class="file-info">
-                    <p><strong>ATTRIBUTOR 2022.pxp</strong> - Main experiment file (57.3 MB)</p>
-                    <p><strong>MainProc.ipf</strong> - Procedure file with core functions (831 KB)</p>
+                <div class="download-info">
+                    <h4>⚠️ Requirements</h4>
+                    <p><strong>Igor Pro 8.00 or later</strong> is required (for long wave name support)</p>
+                    <p>Both files must be in the same directory</p>
                 </div>
-            </section>
-            
-            <section class="requirements">
-                <h3>Requirements</h3>
-                <p>To run ATTRIBUTOR, you need:</p>
-                <ul>
-                    <li><strong>Igor Pro 8.00 or later</strong> (required for long wave name support)</li>
-                    <li>Windows operating system</li>
-                    <li>Sufficient memory for mass spectrometry data processing</li>
-                </ul>
-                
-                <h4>How to Run</h4>
-                <p>Launch ATTRIBUTOR using the following command:</p>
                 <div class="command-box">
                     Igor64.exe ".\ATTRIBUTOR 2022.pxp"
                 </div>
-                <p>
-                    <strong>Note:</strong> Make sure both files (ATTRIBUTOR 2022.pxp and MainProc.ipf) 
-                    are in the same directory when running the software.
-                </p>
             </section>
-            
-            <section class="official-link">
-                <h3>Official Igor Pro Website</h3>
-                <p>
-                    ATTRIBUTOR is built on the <strong>Igor Pro</strong> platform developed by WaveMetrics. 
-                    Visit the official website to learn more about Igor Pro and download the software:
-                </p>
-                <a href="https://www.wavemetrics.com/" class="btn" target="_blank">Visit WaveMetrics Website</a>
-            </section>
-            
-            <section class="author-info">
-                <h4>About the Author</h4>
-                <p>
-                    ATTRIBUTOR was developed by <strong>François-Régis ORTHOUS-DAUNAY</strong> at 
-                    <strong>IPAG (UMR5374)</strong>, CNRS, Université Joseph Fourier in Grenoble, France.
-                </p>
-                <p>
-                    <em>License:</em> Non-exclusive, non-transferable license for research activities only. 
-                    All rights reserved. Please respect the intellectual property and licensing terms.
-                </p>
+
+            <!-- REFERENCES -->
+            <section id="references">
+                <h2>References & Resources</h2>
+                <div class="btn-group">
+                    <a href="https://www.wavemetrics.com/" class="btn btn-secondary" target="_blank">WaveMetrics Igor Pro</a>
+                    <a href="https://www.ipag.fr/" class="btn btn-secondary" target="_blank">IPAG Grenoble</a>
+                </div>
+                <div class="warning" style="margin-top: 30px;">
+                    <h4>⚠️ License Information</h4>
+                    <p>
+                        ATTRIBUTOR is provided under a non-exclusive, non-transferable license for research activities only.
+                        All rights reserved. Developed by François-Régis ORTHOUS-DAUNAY at IPAG (CNRS/UJF).
+                    </p>
+                </div>
             </section>
         </main>
         
         <footer>
-            <p>
-                ATTRIBUTOR &copy; 2014-2022 François-Régis ORTHOUS-DAUNAY | IPAG - CNRS - UJF Grenoble
-            </p>
-            <p>
-                <a href="https://www.ipag.fr/" target="_blank">Visit IPAG Website</a>
-            </p>
+            <p><strong>ATTRIBUTOR</strong> &copy; 2014-2022 François-Régis ORTHOUS-DAUNAY</p>
+            <p class="footer-divider">IPAG - CNRS - UJF Grenoble, France</p>
+            <p>Advanced Mass Spectrometry Analysis for Research</p>
         </footer>
     </div>
 </body>
