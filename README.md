@@ -16,9 +16,10 @@ A comprehensive user guide is available in French:
 
 This guide covers:
 - Installation and launch procedures
-- User interface description
+- Detailed user interface description
 - Step-by-step workflow
 - Advanced features and algorithms
+- Mathematical foundations
 - Practical tutorials
 - Troubleshooting
 - License information
