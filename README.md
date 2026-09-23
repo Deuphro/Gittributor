@@ -2,20 +2,26 @@
 
 A mass spectrometry expert tool developed at **IPAG (Institut de Planétologie et d'Astrophysique de Grenoble, France)**.
 
+## 📥 Quick Download
+
+**Direct download links:**
+- [ATTRIBUTOR 2022.pxp](ATTRIBUTOR%202022.pxp) (~55 MB) - Main project file
+- [MainProc.ipf](MainProc.ipf) (~813 KB) - Source code
+- [Igor Pro Official Website](https://www.wavemetrics.com/) - WaveMetrics
+
 ## 📚 Documentation
 
-User guides are available in French and English:
-- **[Attributor - Guide complet (avec traducteur FR/EN)](attributor-guide-full.html)** - Full detailed guide with French/English language toggle
-- **[Attributor - Guide d'utilisation (Français)](attributor-guide.html)** - Original French guide
+A comprehensive user guide is available:
+- **[Attributor - Complete User Guide](attributor-guide.html)**
 
-The full guide covers:
+This guide covers:
 - Installation and launch procedures
 - Detailed user interface description
 - Step-by-step workflow
 - Advanced features and algorithms
-- Mathematical foundations of isotopic distribution calculations
+- Mathematical foundations
 - Practical tutorials
-- Comprehensive troubleshooting
+- Troubleshooting
 - License information
 
 ## 🚀 Quick Start
@@ -46,11 +52,8 @@ The full guide covers:
 |------|-------------|
 | `ATTRIBUTOR 2022.pxp` | Main Igor Pro project file |
 | `MainProc.ipf` | Source code with all functions and procedures |
-| `attributor-guide-full.html` | Complete user guide with FR/EN toggle |
-| `attributor-guide.html` | User guide (French) |
-| `attributor-style.css` | Stylesheet for the guides |
-| `attributor-script.js` | JavaScript for language toggle and interactivity |
-| `translations.json` | Translation data for FR/EN language support |
+| `attributor-guide.html` | Complete user guide (all-in-one HTML) |
+| `index.html` | Redirect page |
 
 ## 🔬 Features
 
