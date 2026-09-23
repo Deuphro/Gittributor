@@ -456,7 +456,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set up language toggle button
     const langButton = document.getElementById('language-toggle');
     if (langButton) {
+        // Add visual confirmation that script is loaded
+        langButton.style.opacity = '1';
         langButton.addEventListener('click', toggleLanguage);
+        console.log('Language button event listener attached');
+    } else {
+        console.error('Language button not found!');
     }
     
     // Initialize active nav item on page load
