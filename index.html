@@ -2,17 +2,440 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=attributor-guide-full.html">
-    <title>Attributor - Redirecting</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATTRIBUTOR - Mass Spectrometry Analysis Software</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        a { color: #3b82f6; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        main {
+            padding: 40px;
+        }
+        
+        .description {
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+        
+        .description h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .description p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .feature-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .feature-card li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+        }
+        
+        .feature-card li:before {
+            content: "✓";
+            color: #27ae60;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .download-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .download-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #2980b9 0%, #1f618d 100%);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #7f8c8d 0%, #666 100%);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .file-info {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        
+        .requirements {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        
+        .requirements h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+        
+        .requirements ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .requirements li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #7f8c8d;
+        }
+        
+        .requirements li:before {
+            content: "!";
+            color: #ffc107;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .command-box {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .official-link {
+            display: block;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        
+        .official-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .author-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 80%;
+                max-width: 400px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            main {
+                padding: 20px;
+            }
+            
+            header {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+        }
     </style>
 </head>
 <body>
-    <p>Redirecting to the complete guide...</p>
-    <p>If you are not redirected automatically, 
-    click <a href="attributor-guide-full.html">here</a>.</p>
+    <div class="container">
+        <header>
+            <div class="logo">ATTRIBUTOR</div>
+            <h1>ATTRIBUTOR</h1>
+            <p class="subtitle">Advanced Mass Spectrometry Formula Attribution Tool</p>
+        </header>
+        
+        <main>
+            <section class="description">
+                <h2>Overview</h2>
+                <p>
+                    <strong>ATTRIBUTOR</strong> is a specialized software tool developed for mass spectrometry data analysis, 
+                    particularly focused on <strong>molecular formula attribution</strong> from high-resolution mass spectra. 
+                    It enables researchers to identify and validate molecular compositions by analyzing isotopic patterns 
+                    and mass-to-charge (m/z) ratios.
+                </p>
+                <p>
+                    Originally developed at <strong>IPAG (Institut de Planétologie et d'Astrophysique de Grenoble)</strong> 
+                    by François-Régis ORTHOUS-DAUNAY, ATTRIBUTOR is designed to assist scientists in astrophysics, 
+                    cosmochemistry, and analytical chemistry in their research activities.
+                </p>
+            </section>
+            
+            <section class="features">
+                <div class="feature-card">
+                    <h3>Molecular Formula Builder</h3>
+                    <ul>
+                        <li>Interactive element selection interface</li>
+                        <li>Support for all periodic table elements</li>
+                        <li>Visual representation of molecular composition</li>
+                        <li>Charge state management (+/-)</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>Isotopic Pattern Simulation</h3>
+                    <ul>
+                        <li>Calculate isotopic distributions</li>
+                        <li>Generate theoretical mass spectra</li>
+                        <li>Multi-isotope combination analysis</li>
+                        <li>Probability-weighted isotopic patterns</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>Spectral Analysis Tools</h3>
+                    <ul>
+                        <li>Data import and visualization</li>
+                        <li>Peak detection and identification</li>
+                        <li>Noise filtering algorithms</li>
+                        <li>Comparison between theoretical and experimental spectra</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>Advanced Visualization</h3>
+                    <ul>
+                        <li>Multi-panel graph displays</li>
+                        <li>Logarithmic and linear scaling</li>
+                        <li>Customizable graph parameters</li>
+                        <li>Export and save capabilities</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section class="download-section">
+                <h2>Download ATTRIBUTOR</h2>
+                <p>Get started with ATTRIBUTOR by downloading the required files below.</p>
+                
+                <div class="download-buttons">
+                    <a href="ATTRIBUTOR%202022.pxp" class="btn" download>Download .pxp File</a>
+                    <a href="MainProc.ipf" class="btn" download>Download .ipf File</a>
+                </div>
+                
+                <div class="file-info">
+                    <p><strong>ATTRIBUTOR 2022.pxp</strong> - Main experiment file (57.3 MB)</p>
+                    <p><strong>MainProc.ipf</strong> - Procedure file with core functions (831 KB)</p>
+                </div>
+            </section>
+            
+            <section class="requirements">
+                <h3>Requirements</h3>
+                <p>To run ATTRIBUTOR, you need:</p>
+                <ul>
+                    <li><strong>Igor Pro 8.00 or later</strong> (required for long wave name support)</li>
+                    <li>Windows operating system</li>
+                    <li>Sufficient memory for mass spectrometry data processing</li>
+                </ul>
+                
+                <h4>How to Run</h4>
+                <p>Launch ATTRIBUTOR using the following command:</p>
+                <div class="command-box">
+                    Igor64.exe ".\ATTRIBUTOR 2022.pxp"
+                </div>
+                <p>
+                    <strong>Note:</strong> Make sure both files (ATTRIBUTOR 2022.pxp and MainProc.ipf) 
+                    are in the same directory when running the software.
+                </p>
+            </section>
+            
+            <section class="official-link">
+                <h3>Official Igor Pro Website</h3>
+                <p>
+                    ATTRIBUTOR is built on the <strong>Igor Pro</strong> platform developed by WaveMetrics. 
+                    Visit the official website to learn more about Igor Pro and download the software:
+                </p>
+                <a href="https://www.wavemetrics.com/" class="btn" target="_blank">Visit WaveMetrics Website</a>
+            </section>
+            
+            <section class="author-info">
+                <h4>About the Author</h4>
+                <p>
+                    ATTRIBUTOR was developed by <strong>François-Régis ORTHOUS-DAUNAY</strong> at 
+                    <strong>IPAG (UMR5374)</strong>, CNRS, Université Joseph Fourier in Grenoble, France.
+                </p>
+                <p>
+                    <em>License:</em> Non-exclusive, non-transferable license for research activities only. 
+                    All rights reserved. Please respect the intellectual property and licensing terms.
+                </p>
+            </section>
+        </main>
+        
+        <footer>
+            <p>
+                ATTRIBUTOR &copy; 2014-2022 François-Régis ORTHOUS-DAUNAY | IPAG - CNRS - UJF Grenoble
+            </p>
+            <p>
+                <a href="https://www.ipag.fr/" target="_blank">Visit IPAG Website</a>
+            </p>
+        </footer>
+    </div>
 </body>
 </html>

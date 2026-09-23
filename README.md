@@ -1,167 +1,180 @@
-# Attributor / Gittributor
+# ATTRIBUTOR - Mass Spectrometry Formula Attribution Tool
 
-An expert mass spectrometry analysis tool developed at **IPAG (Institut de Planetologie et d'Astrophysique de Grenoble, France)**.
+[![WaveMetrics Igor Pro](https://www.wavemetrics.com/images/wavemetrics_logo.png)](https://www.wavemetrics.com/)
 
-## Quick Download
-
-**Direct download links:**
-- [ATTRIBUTOR 2022.pxp](ATTRIBUTOR%202022.pxp) (~55 MB) - Main project file
-- [MainProc.ipf](MainProc.ipf) (~813 KB) - Source code
-- [Igor Pro Official Website](https://www.wavemetrics.com/) - WaveMetrics
-
-## Documentation
-
-A comprehensive expert user guide is available:
-- **[Attributor - Complete Expert User Guide](attributor-guide-full.html)**
-
-This guide covers:
-- Scientific foundations and theory
-- System requirements and prerequisites
-- Installation and launch procedures
-- Detailed user interface description
-- Standard and advanced workflows
-- Mathematical algorithms and calculations
-- Step-by-step tutorials
-- Technical reference and Igor Pro commands
-- Troubleshooting guide
-- License information
-
-## Quick Start
-
-### Prerequisites
-- **Igor Pro 64-bit** (WaveMetrics) version 8.x or higher - <strong>32-bit NOT supported</strong>
-- Compatible with **Windows 7/10/11** (64-bit)
-- Minimum **4 GB RAM** recommended, **8-16 GB** for large molecules
-
-### Installation
-1. Ensure both files are in the same directory:
-   - `ATTRIBUTOR 2022.pxp` (main project file)
-   - `MainProc.ipf` (source code with all procedures)
-
-2. Launch **Igor64.exe** (64-bit version only)
-
-3. Open the project: **File -> Open -> Open Experiment...** -> Select `ATTRIBUTOR 2022.pxp`
-
-   **Alternative:** Drag and drop the .pxp file onto Igor64.exe
-
-### Basic Usage
-- Use the **periodic table panel** to click on elements and build molecular formulas
-- The isotopic distribution simulation appears automatically in the **elaborateur** window
-- Red lines = Theoretical simulation, Gray lines = Experimental data
-- Compare with experimental data using **Recal** button for automatic calibration
-- Add simulations to **agregador** for multi-molecule comparison
-
-## Files
-
-| File | Description | Size | Required |
-|------|-------------|------|----------|
-| `ATTRIBUTOR 2022.pxp` | Main Igor Pro experiment file | ~55 MB | Yes |
-| `MainProc.ipf` | Source code with all functions and procedures | ~813 KB | Yes |
-| `attributor-guide-full.html` | Complete expert user guide (all-in-one HTML) | ~150 KB | No |
-| `index.html` | Redirect page | ~1 KB | No |
+ATTRIBUTOR is an advanced software tool for **molecular formula attribution** from high-resolution mass spectrometry data. Developed at **IPAG (Institut de Planétologie et d'Astrophysique de Grenoble)** by François-Régis ORTHOUS-DAUNAY, this Igor Pro-based application enables researchers to analyze isotopic patterns and mass-to-charge (m/z) ratios to identify and validate molecular compositions.
 
 ## Features
 
-### Core Capabilities
-- **Interactive molecular formula building** via periodic table interface
-- **High-precision isotopic distribution simulation** using polynomial generator method
-- **Real-time experimental comparison** with logarithmic intensity scaling
-- **Mass calibration** (automatic and manual modes)
-- **Multi-molecule comparison** via aggregator window
-- **Mass defect analysis** (DMVM plots, Kendrick analysis)
-- **MS/MS mode** support for tandem mass spectrometry
+### Molecular Formula Construction
+- **Interactive element selection**: Click buttons for each element to build molecular formulas
+- **Comprehensive element support**: All periodic table elements available
+- **Charge state management**: Handle positive and negative ion states
+- **Visual formula representation**: Real-time display of molecular composition
 
-### Advanced Features
-- Fast Fourier Transform (FFT) optimized calculations
-- Support for all stable isotopes with natural abundances
-- Dynamic range: 0.001% to 100% of base peak
-- Multiple peak profile shapes (Gaussian, Lorentzian, hybrid)
-- Region Of Interest (ROI) selection
-- Batch processing capabilities
+### Isotopic Pattern Analysis
+- **Multi-isotope combination calculations**: Computes all possible isotopic combinations
+- **Probability-weighted distributions**: Theoretical isotopic abundance calculations
+- **Mass defect analysis**: Precise mass-to-charge ratio calculations
+- **Isotope filtering**: Adjustable thresholds for probability criteria
 
-### Window System
-- **panel**: Periodic table control panel
-- **elaborateur**: Main graph window for visualization
-- **agregador**: Multi-simulation comparison window
-- **dmvm**: Mass defect vs m/z analysis window
-- **AdvancedManager**: Data management and spectrum loading
+### Spectral Analysis Tools
+- **Data visualization**: Multi-panel graph displays with customizable parameters
+- **Peak detection**: Automatic identification of spectral peaks
+- **Noise filtering**: Advanced algorithms for signal-to-noise enhancement
+- **Pattern matching**: Compare theoretical and experimental spectra
 
-## Tutorial Example
+### Advanced Capabilities
+- **Graph customization**: Logarithmic and linear scaling options
+- **Profile fitting**: Gaussian, Lorentzian, and asymmetric peak profiles
+- **Data export**: Save and export analysis results
+- **Multi-spectrum overlay**: Compare multiple datasets simultaneously
 
-To identify an unknown molecule with a peak at m/z = 214.08485:
-1. Use AdvancedManager to load experimental spectrum
-2. In dmvm window, note mass defect: +0.08485 Da
-3. Build formula C10H10O4 in panel (10x C, 10x H, 4x O)
-4. Monoisotopic mass: 214.05790880 Da
-5. Compare isotopic profile in elaborateur
-6. Use Recal if peaks do not align perfectly
-7. Add to agregador to compare with alternative hypotheses
+## Installation
 
-## Troubleshooting
+### Requirements
+- **Igor Pro 8.00 or later** (required for long wave name support)
+- Windows operating system
+- Minimum 4 GB RAM (8 GB recommended for large datasets)
 
-| Problem | Cause | Solution |
-|--------|-------|----------|
-| Igor Pro fails to launch | Corrupted installation | Reinstall Igor Pro 64-bit |
-| Project fails to load | MainProc.ipf not in same directory | Place both files together |
-| "Function not found" error | Procedure not compiled | Verify MainProc.ipf location |
-| Simulation is slow | Large molecule (>100 atoms) | Increase threshold or reduce size |
-| Peaks do not align | Mass calibration needed | Use Recal button |
-| Memory errors | Insufficient RAM | Close other applications or increase RAM |
+### Quick Start
+
+1. **Download the files**:
+   - [ATTRIBUTOR 2022.pxp](ATTRIBUTOR%202022.pxp) - Main experiment file
+   - [MainProc.ipf](MainProc.ipf) - Core procedure file
+
+2. **Place files in the same directory**
+
+3. **Launch ATTRIBUTOR**:
+   ```bash
+   Igor64.exe ".\ATTRIBUTOR 2022.pxp"
+   ```
+
+## Usage
+
+### Basic Workflow
+
+1. **Load your mass spectrometry data** into Igor Pro
+2. **Open ATTRIBUTOR** using the command above
+3. **Build your molecular formula** by clicking element buttons
+4. **Adjust isotopic criteria** using the threshold controls
+5. **Compare theoretical patterns** with your experimental data
+6. **Validate and refine** your molecular attribution
+
+### Element Selection
+
+The ATTRIBUTOR interface provides buttons for all elements organized by periodic table groups:
+- **Light elements**: H, He, Li, Be, B, C, N, O, F, Ne
+- **Alkali/Alkaline Earth**: Na, Mg, Al, Si, P, S, Cl, Ar
+- **Transition metals**: Sc, Ti, V, Cr, Mn, Fe, Co, Ni, Cu, Zn, etc.
+- **Heavy elements**: All remaining elements up to U
+
+### Isotopic Simulation
+
+ATTRIBUTOR calculates isotopic distributions using:
+- Element-specific isotopic masses and abundances
+- Binomial probability distributions
+- Configurable probability thresholds (0-100%)
+- Charge state corrections
+
+### Graph Windows
+
+ATTRIBUTOR uses multiple graph windows:
+- **elaborateur**: Main analysis window with data overlay
+- **agregateur**: Aggregated spectrum display
+- **dmvm**: Mass defect visualization
+- **molmanager**: Molecular formula management
+
+## File Descriptions
+
+### ATTRIBUTOR 2022.pxp
+- **Type**: Igor Pro Experiment file (packed)
+- **Size**: ~57.3 MB
+- **Content**: All experiment data, windows, variables, and saved analysis
+- **Note**: Binary format, requires Igor Pro to open
+
+### MainProc.ipf
+- **Type**: Igor Pro Procedure file
+- **Size**: ~831 KB
+- **Content**: Core functions and macros including:
+  - `genestringmol()` - Generate molecular formula strings
+  - `choisylecrible()` - Select isotope filtering method
+  - `generesimu()` - Generate isotopic simulations
+  - `crible1-10()` - Isotope combination calculations
+  - Element button handlers (elemH, elemC, elemN, etc.)
+  - Graph window management functions
 
 ## Technical Details
 
-### System Requirements
-- **CPU:** Dual-core 2 GHz (minimum), Quad-core 3 GHz (recommended), Multi-core >3.5 GHz (optimal)
-- **RAM:** 4 GB (minimum), 8 GB (recommended), 16+ GB (optimal for large molecules)
-- **Storage:** 100 MB free space
-- **Graphics:** OpenGL-compatible GPU recommended
-- **Display:** 1280x720 (minimum), 1920x1080 (recommended)
+### Supported Elements
+ATTRIBUTOR supports all naturally occurring elements with their isotopic compositions:
+- Up to 10 isotopes per element
+- Accurate isotopic masses and natural abundances
+- Configurable for custom isotopic data
 
-### Igor Pro Compatibility
-| Version | Status | Notes |
-|--------|--------|-------|
-| Igor Pro 9.x | Fully Supported | Optimized for new features |
-| Igor Pro 8.x | Fully Supported | All features available |
-| Igor Pro 7.x (64-bit) | Limited Support | Some UI issues possible |
-| Igor Pro 6.x or lower | Not Supported | Incompatible API |
-| Igor Pro 32-bit | Not Supported | Memory limitations |
+### Mass Range
+- Theoretical mass range: 0-10,000 m/z (configurable)
+- Practical range depends on instrument capabilities
+- High-resolution mass defect calculations
+
+### Algorithm
+- **Combinatorial approach**: Exhaustive calculation of all possible isotopic combinations
+- **Probability weighting**: Based on natural isotopic abundances
+- **Threshold filtering**: Configurable minimum probability for inclusion
+- **Charge correction**: Electron mass subtraction/addition
 
 ## License
 
-Non-exclusive, non-transferable license for **research purposes only**.
+ATTRIBUTOR is provided under a **non-exclusive, non-transferable license** for research activities only:
 
-### Permitted Uses
-- Academic research in mass spectrometry and related fields
-- Non-commercial scientific analysis
-- Educational purposes in accredited institutions
-- Collaborative research with IPAG or affiliated groups
+- **Permitted**: Use for personal research activities, archiving, and backup
+- **Restricted**: 
+  - Distribution to third parties
+  - Sub-licensing or copying
+  - Reverse engineering or modification
+  - Commercial use or service provision
+  - Third-party access
 
-### Restricted Uses
-- Commercial applications without prior written consent
-- Redistribution of software or source code
-- Modification of source code without permission
-- Use in for-profit organizations without appropriate licensing
+**All rights reserved**. The software, documentation, and specifications remain the intellectual property of the owner (François-Régis ORTHOUS-DAUNAY).
 
-### Copyright
+## Author
 
-&copy; 2014-2026 **Francois-Regis ORTHOUS-DAUNAY**
+**François-Régis ORTHOUS-DAUNAY**
 
-**Institution:** IPAG (Institut de Planetologie et d'Astrophysique de Grenoble)
+- **Affiliation**: IPAG (UMR5374), CNRS, Université Joseph Fourier
+- **Location**: Grenoble, France
+- **Date**: September 1st, 2014 (original version)
 
-**Affiliations:** UMR 5274, CNRS, Universite Grenoble Alpes, France
+## References
 
-## About IPAG
+- **IPAG**: [Institut de Planétologie et d'Astrophysique de Grenoble](https://www.ipag.fr/)
+- **CNRS**: [Centre National de la Recherche Scientifique](https://www.cnrs.fr/)
+- **Igor Pro**: [WaveMetrics Igor Pro](https://www.wavemetrics.com/)
 
-**Institut de Planetologie et d'Astrophysique de Grenoble**
+## Version History
 
-- **UMR 5274** (CNRS / Universite Grenoble Alpes)
-- **Website:** [https://ipag.osug.fr](https://ipag.osug.fr)
-- **Research domains:** Astrophysics, Planetology, Earth and Universe Sciences, Instrumentation
+- **2022**: Current version with updated features
+- **2014**: Original release (September 1st)
 
-## Contact
+## Support
 
-Developer: **Francois-Regis ORTHOUS-DAUNAY**
+For questions or issues regarding ATTRIBUTOR:
+
+1. Ensure you have **Igor Pro 8.00 or later** installed
+2. Verify both files (.pxp and .ipf) are in the same directory
+3. Check that you have sufficient memory for your dataset
+4. Consult the WaveMetrics Igor Pro documentation
+
+## Web Interface
+
+A companion web page is available with:
+- Complete feature overview
+- Direct download links
+- Usage instructions
+- Official links to WaveMetrics
+
+Open [index.html](index.html) in your browser for the full documentation.
 
 ---
 
-*Last updated: September 2026*
+*ATTRIBUTOR is provided "as is" without warranty of any kind. Use at your own risk.*
