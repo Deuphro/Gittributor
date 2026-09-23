@@ -743,104 +743,6 @@ footer {
                 </div>
             </section>
 
-            <section id="interface" class="section">
-                <h2>User Interface Overview</h2>
-                <p>Attributor's interface consists of multiple specialized windows, each serving a distinct purpose in the molecular formula attribution workflow.</p>
-                
-                <h3>Window Descriptions</h3>
-                <div class="screenshot-grid">
-                    <div class="screenshot-item">
-                        <h4>Periodic Table Panel (panel)</h4>
-                        <p><strong>Position:</strong> Typically bottom-left<br><strong>Primary Function:</strong> Interactive periodic table for building molecular formulas through element selection.</p>
-                        <p><strong>Display:</strong> Complete periodic table with color-coded element groups.</p>
-                        <p><strong>Interaction:</strong> Click to increment, Shift+Click to decrement, Ctrl+Click to reset, Double-Click for +10, Right-Click for context menu.</p>
-                    </div>
-                    <div class="screenshot-item">
-                        <h4>Elaborateur Window (elaborateur)</h4>
-                        <p><strong>Position:</strong> Typically center<br><strong>Primary Function:</strong> Main graph window displaying simulated isotopic distribution overlaid with experimental data.</p>
-                        <p><strong>Display:</strong> Logarithmic intensity scale vs m/z. Red lines = Theoretical simulation, Gray lines = Experimental data.</p>
-                    </div>
-                    <div class="screenshot-item">
-                        <h4>Aggregator Window (agregador)</h4>
-                        <p><strong>Position:</strong> Typically center-right<br><strong>Primary Function:</strong> Compare multiple isotopic simulations and overlay with experimental data.</p>
-                        <p><strong>Usage:</strong> Add simulations from elaborateur using the "Add to agregator" button.</p>
-                    </div>
-                    <div class="screenshot-item">
-                        <h4>DMVM Window (dmvm)</h4>
-                        <p><strong>Position:</strong> Typically top-right<br><strong>Primary Function:</strong> Mass Defect vs m/z analysis for detailed investigation of mass deviations.</p>
-                        <p><strong>Display:</strong> Scatter plot of mass defect values against m/z.</p>
-                    </div>
-                    <div class="screenshot-item">
-                        <h4>Advanced Manager Panel (AdvancedManager)</h4>
-                        <p><strong>Position:</strong> Typically top-right (floating)<br><strong>Primary Function:</strong> Advanced data management for loading and processing experimental spectra.</p>
-                        <p><strong>Supported Formats:</strong> Igor Pro binary (.ibw), ASCII text files with m/z and intensity columns.</p>
-                    </div>
-                </div>
-                
-                <h3>Main Windows in Detail</h3>
-                <div class="interface-grid">
-                    <div class="interface-zone">
-                        <h4>Periodic Table Panel</h4>
-                        <p><strong>Layout:</strong> Grid organized by periods (rows) and groups (columns), color-coded by element category.</p>
-                        <p><strong>Element Groups:</strong> Alkali Metals (Red), Transition Metals (Blue), Post-Transition Metals (Green), Nonmetals/Halogens (Purple), Lanthanides/Actinides (Gray).</p>
-                        <p><strong>Interactive Features:</strong> Click = +1 atom, Shift+Click = -1 atom, Ctrl+Click = reset to 0, Double-Click = +10 atoms, Right-Click = element info.</p>
-                        <p><strong>Visual Feedback:</strong> Current molecular formula displayed at bottom of panel with real-time updates.</p>
-                    </div>
-                    <div class="interface-zone">
-                        <h4>Elaborateur (Main Graph Window)</h4>
-                        <p><strong>Primary Display:</strong> Simulated isotopic distribution (red) overlaid with experimental data (gray).</p>
-                        <p><strong>Controls:</strong></p>
-                        <ul>
-                            <li><strong>Width:</strong> Full Width at Half Maximum (FWHM) parameter for peak broadening. Typical range: 0.001-0.1 Da.</li>
-                            <li><strong>Shape:</strong> Peak shape selection - Gaussian or Lorentzian</li>
-                            <li><strong>Asym. (Asymmetry):</strong> Peak asymmetry parameter</li>
-                        </ul>
-                        <p><strong>Intensity Scaling:</strong> Linear (direct) or Logarithmic (compresses dynamic range, reveals low-intensity peaks).</p>
-                        <p><strong>Zoom/Pan:</strong> Mouse scroll to zoom, click and drag to pan. Double-click to reset view.</p>
-                    </div>
-                    <div class="interface-zone">
-                        <h4>Agregador (Aggregator Window)</h4>
-                        <p><strong>Purpose:</strong> Side-by-side comparison of multiple molecular hypotheses.</p>
-                        <p><strong>Features:</strong> Multi-Overlay, Experimental Overlay, Visual Comparison, Individual scaling controls.</p>
-                        <p><strong>Usage Workflow:</strong> Build formula in panel -> Verify in elaborateur -> Click "Add to agregator" -> Build next formula -> Compare all in agregador.</p>
-                        <p><strong>Clear:</strong> Click "Clear agregator" to remove all simulations.</p>
-                    </div>
-                    <div class="interface-zone">
-                        <h4>DMVM Window (Mass Defect Analysis)</h4>
-                        <p><strong>Purpose:</strong> Mass Defect vs m/z plot for identifying elemental compositions.</p>
-                        <p><strong>Display:</strong> X-axis = m/z, Y-axis = Mass Defect = Exact Mass - round(Exact Mass).</p>
-                        <p><strong>Interpretation:</strong> Horizontal lines = constant mass defect, Diagonal patterns = homologous series, Clusters = different molecular families.</p>
-                        <p><strong>ROI Selection:</strong> Use Shift+Click and drag to define Region Of Interest.</p>
-                    </div>
-                </div>
-                
-                <h3>Periodic Table Panel Controls</h3>
-                <div class="table-container">
-                    <table>
-                        <thead><tr><th>Control</th><th>Description</th><th>Function</th><th>Action</th></tr></thead>
-                        <tbody>
-                            <tr><td><strong>Reset</strong></td><td>Clear current molecule</td><td>Sets all atom counts to zero, resets charge state</td><td>Click to reset</td></tr>
-                            <tr><td><strong>Add to agregator</strong></td><td>Add simulation to aggregator</td><td>Copies current simulated isotopic distribution to agregador</td><td>Click to add</td></tr>
-                            <tr><td><strong>Recal</strong></td><td>Calibrate experimental data</td><td>Shifts experimental spectrum to align with theoretical peaks</td><td>Click to auto-calibrate</td></tr>
-                            <tr><td><strong>Hard Recal</strong></td><td>Force calibration</td><td>Strict calibration using fixed parameters</td><td>Click for manual calibration</td></tr>
-                            <tr><td><strong>doMSMS</strong></td><td>Activate MS/MS mode</td><td>Enables tandem mass spectrometry analysis</td><td>Toggle on/off</td></tr>
-                            <tr><td><strong>Charge +</strong></td><td>Increase ion charge</td><td>Increment positive charge state by +1</td><td>Click to increase</td></tr>
-                            <tr><td><strong>Charge -</strong></td><td>Decrease ion charge</td><td>Decrement positive charge or increase negative charge</td><td>Click to decrease</td></tr>
-                            <tr><td><strong>EM Mode</strong></td><td>Exact Mass Mode</td><td>Toggle between exact mass and nominal mass display</td><td>Toggle mode</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div class="info-box">
-                    <h4>Color Coding System</h4>
-                    <p><strong>Red:</strong> Destructive actions, theoretical data lines, error states<br>
-                       <strong>Green:</strong> Constructive actions, success states<br>
-                       <strong>Blue:</strong> Primary elements, information displays<br>
-                       <strong>Gray:</strong> Experimental data lines, inactive elements<br>
-                       <strong>Orange/Yellow:</strong> Warnings, alerts</p>
-                </div>
-            </section>
-
             <section id="workflow" class="section">
                 <h2>Standard Workflow</h2>
                 <p>Attributor is designed for an efficient, iterative workflow that allows experts to rapidly test hypotheses and refine molecular assignments.</p>
@@ -1299,6 +1201,40 @@ BibTeX format:
                     <p><strong>NO WARRANTY:</strong> Attributor is provided "AS IS" without warranty of any kind, either expressed or implied, including without limitation any warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
                     <p><strong>LIABILITY:</strong> In no event shall the developers, IPAG, CNRS, or Universite Grenoble Alpes be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software.</p>
                     <p><strong>ACCURACY:</strong> While every effort has been made to ensure the accuracy of the calculations, the user is responsible for validating results through independent means.</p>
+                </div>
+            </section>
+            <section id="interface" class="section">
+                <h2>User Interface Overview</h2>
+                <p>Attributor's interface consists of multiple specialized windows, each serving a distinct purpose in the molecular formula attribution workflow.</p>
+                
+                <h3>Window Descriptions</h3>
+                <div class="screenshot-grid">
+                    <div class="screenshot-item">
+                        <h4>Periodic Table Panel (panel)</h4>
+                        <p><strong>Position:</strong> Typically bottom-left<br><strong>Primary Function:</strong> Interactive periodic table for building molecular formulas through element selection.</p>
+                        <p><strong>Display:</strong> Complete periodic table with color-coded element groups.</p>
+                        <p><strong>Interaction:</strong> Click to increment, Shift+Click to decrement, Ctrl+Click to reset, Double-Click for +10, Right-Click for context menu.</p>
+                    </div>
+                    <div class="screenshot-item">
+                        <h4>Elaborateur Window (elaborateur)</h4>
+                        <p><strong>Position:</strong> Typically center<br><strong>Primary Function:</strong> Main graph window displaying simulated isotopic distribution overlaid with experimental data.</p>
+                        <p><strong>Display:</strong> Logarithmic intensity scale vs m/z. Red lines = Theoretical simulation, Gray lines = Experimental data.</p>
+                    </div>
+                    <div class="screenshot-item">
+                        <h4>Aggregator Window (agregador)</h4>
+                        <p><strong>Position:</strong> Typically center-right<br><strong>Primary Function:</strong> Compare multiple isotopic simulations and overlay with experimental data.</p>
+                        <p><strong>Usage:</strong> Add simulations from elaborateur using the "Add to agregator" button.</p>
+                    </div>
+                    <div class="screenshot-item">
+                        <h4>DMVM Window (dmvm)</h4>
+                        <p><strong>Position:</strong> Typically top-right<br><strong>Primary Function:</strong> Mass Defect vs m/z analysis for detailed investigation of mass deviations.</p>
+                        <p><strong>Display:</strong> Scatter plot of mass defect values against m/z.</p>
+                    </div>
+                    <div class="screenshot-item">
+                        <h4>Advanced Manager Panel (AdvancedManager)</h4>
+                        <p><strong>Position:</strong> Typically top-right (floating)<br><strong>Primary Function:</strong> Advanced data management for loading and processing experimental spectra.</p>
+                        <p><strong>Supported Formats:</strong> Igor Pro binary (.ibw), ASCII text files with m/z and intensity columns.</p>
+                    </div>
                 </div>
             </section>
         </div>
