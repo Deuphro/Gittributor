@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attributor - Guide Complet</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1f2937;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: var(--text); background: var(--bg); }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 30px 0; text-align: center; }
+        header h1 { font-size: 2rem; }
+        header p { opacity: 0.9; }
+        .download-bar { background: #fff3cd; border-bottom: 1px solid #e5e7eb; padding: 15px 0; text-align: center; }
+        .download-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--primary); color: white; text-decoration: none; border-radius: 8px; margin: 0 5px; font-weight: 500; }
+        .download-btn:hover { background: var(--secondary); }
+        main { padding: 20px 0; }
+        section { background: white; border-radius: 8px; padding: 25px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        section h2 { color: var(--primary); border-bottom: 2px solid var(--secondary); padding-bottom: 10px; margin-bottom: 15px; }
+        section h3 { color: var(--primary); margin: 20px 0 10px 0; }
+        h4 { color: var(--primary); margin: 18px 0 8px 0; }
+        a { color: var(--secondary); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        ul { margin-left: 20px; }
+        li { margin: 8px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+        th { background: var(--bg); font-weight: 600; }
+        code { background: var(--bg); padding: 2px 4px; border-radius: 3px; font-family: monospace; }
+        pre { background: #1e293b; color: #e2e8f0; padding: 15px; border-radius: 8px; overflow-x: auto; margin: 15px 0; }
+        footer { background: var(--primary); color: white; padding: 20px; text-align: center; margin-top: 30px; }
+        @media (max-width: 768px) {
+            .download-btn { display: block; margin: 5px auto; width: 90%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Attributor</h1>
+            <p><strong>Outil Expert en Spectrométrie de Masse</strong><br>IPAG - Institut de Planétologie et d'Astrophysique de Grenoble</p>
+        </div>
+    </header>
+
+    <div class="download-bar">
+        <div class="container">
+            <strong>Téléchargement direct :</strong>
+            <a href="ATTRIBUTOR%202022.pxp" class="download-btn" download>⬇️ ATTRIBUTOR 2022.pxp (~55 Mo)</a>
+            <a href="MainProc.ipf" class="download-btn" download>⬇️ MainProc.ipf (~813 Ko)</a>
+            <a href="https://www.wavemetrics.com/" class="download-btn" target="_blank">🌐 Site Igor Pro (WaveMetrics)</a>
+        </div>
+    </div>
+
+    <main>
+        <div class="container">
+            <section>
+                <h2>Introduction</h2>
+                <p><strong>Attributor</strong> est un outil spécialisé pour <strong>Igor Pro 64-bit</strong> développé à l'<strong>IPAG Grenoble</strong> pour l'analyse et l'attribution des spectres de masse.</p>
+                <p>Il permet de :</p>
+                <ul>
+                    <li><strong>Construire des formules moléculaires</strong> via un tableau périodique interactif</li>
+                    <li><strong>Simuler les distributions isotopiques</strong> théoriques avec précision</li>
+                    <li><strong>Comparer les spectres simulés</strong> aux données expérimentales</li>
+                    <li><strong>Calibrer les données</strong> expérimentales</li>
+                    <li><strong>Analyser les écarts de masse</strong> (DMVM)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Prérequis</h2>
+                <ul>
+                    <li><strong>Igor Pro 64-bit</strong> (WaveMetrics) installé</li>
+                    <li><strong>Windows 7/10/11</strong></li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Installation</h2>
+                <p><strong>Les deux fichiers doivent être dans le même répertoire :</strong></p>
+                <table>
+                    <thead>
+                        <tr><th>Fichier</th><th>Description</th><th>Taille</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>ATTRIBUTOR 2022.pxp</code></td><td>Projet principal Igor Pro</td><td>~55 Mo</td></tr>
+                        <tr><td><code>MainProc.ipf</code></td><td>Code source</td><td>~813 Ko</td></tr>
+                    </tbody>
+                </table>
+                <h3>Procédure :</h3>
+                <ol>
+                    <li>Lancer <code>Igor64.exe</code></li>
+                    <li>Menu : <strong>File → Open → Open Experiment...</strong></li>
+                    <li>Sélectionner <code>ATTRIBUTOR 2022.pxp</code></li>
+                </ol>
+                <p><strong>Alternative</strong> : Glisser-déposer le fichier .pxp sur Igor64.exe</p>
+            </section>
+
+            <section>
+                <h2>Interface</h2>
+                <p><strong>Fenêtres principales :</strong></p>
+                <table>
+                    <thead>
+                        <tr><th>Fenêtre</th><th>Fonction</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>panel</strong></td><td>Tableau périodique - cliquez les éléments pour construire la formule moléculaire</td></tr>
+                        <tr><td><strong>elaborateur</strong></td><td>Graphique principal - visualisation de la distribution isotopique simulée superposée aux données expérimentales</td></tr>
+                        <tr><td><strong>agregador</strong></td><td>Comparaison de plusieurs simulations</td></tr>
+                        <tr><td><strong>dmvm</strong></td><td>Analyse du défaut de masse vs m/z</td></tr>
+                        <tr><td><strong>AdvancedManager</strong></td><td>Gestion des données et chargement des spectres</td></tr>
+                    </tbody>
+                </table>
+                <h3>Boutons principaux :</h3>
+                <table>
+                    <thead>
+                        <tr><th>Bouton</th><th>Action</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Reset</strong></td><td>Effacer la formule moléculaire courante</td></tr>
+                        <tr><td><strong>Add to agregator</strong></td><td>Ajouter la simulation à l'agrégateur pour comparaison</td></tr>
+                        <tr><td><strong>Recal</strong></td><td>Calibrer les données expérimentales</td></tr>
+                        <tr><td><strong>Hard Recal</strong></td><td>Calibration forcée avec paramètres strictes</td></tr>
+                        <tr><td><strong>doMSMS</strong></td><td>Activer le mode MS/MS (tandem)</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>Workflow</h2>
+                <ol>
+                    <li><strong>Charger les données</strong> : Utiliser AdvancedManager pour charger le spectre expérimental</li>
+                    <li><strong>Construire la formule</strong> : Cliquer sur les éléments dans le tableau périodique</li>
+                    <li><strong>Définir la charge ionique</strong> si nécessaire</li>
+                    <li><strong>Visualiser</strong> : La simulation apparaît automatiquement dans elaborateur</li>
+                    <li><strong>Calibrer</strong> : Utiliser Recal si les pics ne s'alignent pas</li>
+                    <li><strong>Comparer</strong> : Ajouter à agregador pour comparer plusieurs hypothèses</li>
+                </ol>
+                <h3>Exemple :</h3>
+                <p>Pour identifier une molécule avec un pic à m/z ≈ 214.08485 :</p>
+                <ol>
+                    <li>Cliquer 10× C, 10× H, 4× O → Formule C10H10O4</li>
+                    <li>Vérifier que la masse monoisotopique ≈ 214.08485</li>
+                    <li>Comparer le profil isotopique dans elaborateur</li>
+                    <li>Utiliser Recal si nécessaire</li>
+                    <li>Ajouter à agregador pour comparaison</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2>Algorithmes</h2>
+                <p>Base de données complète des abondances isotopiques naturelles et masses exactes.</p>
+                <h3>Isotopes principaux :</h3>
+                <table>
+                    <thead>
+                        <tr><th>Élément</th><th>Isotope</th><th>Masse Exacte (u)</th><th>Abondance (%)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td rowspan="2">Hydrogène</td><td><sup>1</sup>H</td><td>1.007825</td><td>99.9885</td></tr>
+                        <tr><td><sup>2</sup>H</td><td>2.014102</td><td>0.0115</td></tr>
+                        <tr><td rowspan="2">Carbone</td><td><sup>12</sup>C</td><td>12.000000</td><td>98.93</td></tr>
+                        <tr><td><sup>13</sup>C</td><td>13.003355</td><td>1.07</td></tr>
+                        <tr><td rowspan="3">Oxygène</td><td><sup>16</sup>O</td><td>15.994915</td><td>99.757</td></tr>
+                        <tr><td><sup>17</sup>O</td><td>16.999132</td><td>0.038</td></tr>
+                        <tr><td><sup>18</sup>O</td><td>17.999160</td><td>0.205</td></tr>
+                        <tr><td rowspan="2">Azote</td><td><sup>14</sup>N</td><td>14.003074</td><td>99.636</td></tr>
+                        <tr><td><sup>15</sup>N</td><td>15.000109</td><td>0.364</td></tr>
+                    </tbody>
+                </table>
+                <p><strong>Algorithme</strong> : Calcul combinatoire basé sur les polynômes générateurs pour chaque élément.</p>
+            </section>
+
+            <section>
+                <h2>Dépannage</h2>
+                <ul>
+                    <li><strong>"Function not found"</strong> : Vérifier que MainProc.ipf est dans le même répertoire que ATTRIBUTOR 2022.pxp</li>
+                    <li><strong>Fenêtres non ouvertes</strong> : Vérifier la fenêtre History pour les erreurs</li>
+                    <li><strong>Simulation lente</strong> : Augmenter le seuil de probabilité des combinaisons isotopiques</li>
+                    <li><strong>Décalage de masse</strong> : Utiliser Recal, vérifier la charge ionique</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Licence</h2>
+                <p>Licence non-exclusive, non-transférable pour usage de recherche uniquement.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p><strong>© 2014-2026 François-Régis ORTHOUS-DAUNAY</strong></p>
+        <p>IPAG (UMR5374), CNRS, Université Grenoble Alpes, France</p>
+        <p><a href="https://ipag.osug.fr" target="_blank" style="color: white;">https://ipag.osug.fr</a></p>
+    </footer>
+</body>
+</html>

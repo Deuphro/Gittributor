@@ -11,15 +11,14 @@ A mass spectrometry expert tool developed at **IPAG (Institut de Planétologie e
 
 ## 📚 Documentation
 
-A comprehensive user guide is available:
-- **[Attributor - Complete User Guide](attributor-guide.html)**
+A comprehensive user guide is available in French:
+- **[Attributor - Complete User Guide (French)](attributor-guide-full.html)**
 
 This guide covers:
 - Installation and launch procedures
-- Detailed user interface description
+- User interface description
 - Step-by-step workflow
 - Advanced features and algorithms
-- Mathematical foundations
 - Practical tutorials
 - Troubleshooting
 - License information
@@ -44,7 +43,7 @@ This guide covers:
 - The isotopic distribution simulation appears automatically in the **elaborateur** window
 - Compare with experimental data
 - Use **Recal** button to calibrate experimental data
-- Add simulations to **agregateur** for multi-comparison
+- Add simulations to **agregador** for multi-comparison
 
 ## 📁 Files
 
@@ -52,7 +51,7 @@ This guide covers:
 |------|-------------|
 | `ATTRIBUTOR 2022.pxp` | Main Igor Pro project file |
 | `MainProc.ipf` | Source code with all functions and procedures |
-| `attributor-guide.html` | Complete user guide (all-in-one HTML) |
+| `attributor-guide-full.html` | Complete user guide (French, all-in-one HTML) |
 | `index.html` | Redirect page |
 
 ## 🔬 Features
@@ -61,7 +60,7 @@ This guide covers:
 - **Isotopic distribution simulation** with high precision
 - **Comparison** of simulated spectra with experimental data
 - **Calibration** of experimental data
-- **Multi-molecule comparison** via agregator
+- **Multi-molecule comparison** via agregador
 - **Mass defect analysis** via DMVM window
 - **MS/MS mode** support
 
@@ -69,7 +68,7 @@ This guide covers:
 
 - **panel**: Periodic table interface for building molecules
 - **elaborateur**: Main graph window for visualization
-- **agregateur**: Comparison window for multiple simulations
+- **agregador**: Comparison window for multiple simulations
 - **dmvm**: Mass defect analysis window
 - **AdvancedManager**: Data management and loading
 
