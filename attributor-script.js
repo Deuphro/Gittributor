@@ -45,19 +45,35 @@ const inlineTranslations = {
 // Load translations on page load
 async function loadTranslations() {
     try {
-        // Try to fetch from external file first
-        const response = await fetch('translations.json');
-        if (response.ok) {
-            translations = await response.json();
+        // Use the pre-loaded translations from the script tag (translations-var.js)
+        if (typeof allTranslations !== 'undefined') {
+            translations = allTranslations;
+            console.log('Loaded translations from allTranslations variable');
         } else {
-            // Fallback to inline translations
-            translations = inlineTranslations;
+            // Fallback: try to fetch from external file
+            const response = await fetch('translations.json');
+            if (response.ok) {
+                translations = await response.json();
+                console.log('Loaded translations from JSON file');
+            } else {
+                // Fallback to inline translations
+                translations = inlineTranslations;
+                console.log('Using inline translations fallback');
+            }
         }
         applyTranslations();
     } catch (error) {
-        console.log('Using inline translations (CORS issue with file:// protocol):', error);
-        translations = inlineTranslations;
-        applyTranslations();
+        console.error('Error loading translations:', error);
+        // If all else fails, try to use the global variable
+        if (typeof allTranslations !== 'undefined') {
+            translations = allTranslations;
+            console.log('Loaded translations from allTranslations in catch block');
+            applyTranslations();
+        } else if (typeof inlineTranslations !== 'undefined') {
+            translations = inlineTranslations;
+            console.log('Using inline translations in catch block');
+            applyTranslations();
+        }
     }
 }
 
