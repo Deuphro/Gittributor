@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attributor - Guide d'utilisation | IPAG Grenoble</title>
+    <link rel="stylesheet" href="attributor-style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Attributor</h1>
+                    <div class="subtitle">Outil expert en spectrométrie de masse</div>
+                </div>
+                <div class="version-badge">Version 2022</div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <a href="#introduction" class="nav-item active">Introduction</a>
+                <a href="#prerequisites" class="nav-item">Prérequis</a>
+                <a href="#installation" class="nav-item">Installation</a>
+                <a href="#interface" class="nav-item">Interface</a>
+                <a href="#workflow" class="nav-item">Workflow</a>
+                <a href="#tutorial" class="nav-item">Tutoriel</a>
+                <a href="#troubleshooting" class="nav-item">Dépannage</a>
+                <a href="#license" class="nav-item">Licence</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="language-bar">
+        <button id="language-toggle" class="lang-button">FR</button>
+    </div>
+
+    <main>
+        <div class="container">
+            
+            <!-- Hero Section -->
+            <section class="hero">
+                <h2>Bienvenue dans Attributor</h2>
+                <p>Un outil puissant développé à l'IPAG (Institut de Planétologie et d'Astrophysique de Grenoble) pour l'analyse et l'attribution des spectres de masse en astronomie et chimie analytique.</p>
+            </section>
+
+            <!-- Introduction -->
+            <section id="introduction" class="section">
+                <h2>Introduction</h2>
+                <p><strong>Attributor</strong> est un logiciel spécialisé pour <strong>Igor Pro</strong> conçu pour aider les chercheurs à :</p>
+                <ul>
+                    <li><strong>Construire des formules moléculaires</strong> de manière interactive via un tableau périodique</li>
+                    <li><strong>Simuler les distributions isotopiques</strong> théoriques avec une précision élevée</li>
+                    <li><strong>Comparer les spectres simulés</strong> avec les données expérimentales</li>
+                    <li><strong>Attribuer des formules moléculaires</strong> à des pics de masse inconnus</li>
+                    <li><strong>Calibrer les données</strong> expérimentales en fonction des formules théoriques</li>
+                </ul>
+                
+                <div class="info-box">
+                    <h4>Domaine d'application</h4>
+                    <p>Attributor est particulièrement utile en <strong>astrophysique moléculaire</strong>, <strong>chimie analytique</strong>, et <strong>spectrométrie de masse haute résolution</strong>.</p>
+                </div>
+            </section>
+
+            <!-- Prerequisites -->
+            <section id="prerequisites" class="section">
+                <h2>Prérequis</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h4>Igor Pro 64-bit</h4>
+                        <p>Le logiciel nécessite <strong>Igor Pro version 64-bit</strong> (WaveMetrics) installé.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h4>Système d'exploitation</h4>
+                        <p>Compatible avec <strong>Windows 7/10/11</strong> (version 64-bit recommandée).</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h4>Espace disque</h4>
+                        <p>Environ <strong>10-20 Mo</strong> d'espace disque nécessaires.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Installation -->
+            <section id="installation" class="section">
+                <h2>Installation et Lancement</h2>
+                
+                <h3>Fichiers fournis</h3>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Fichier</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>ATTRIBUTOR 2022.pxp</code></td><td>Fichier principal du projet Igor Pro</td></tr>
+                            <tr><td><code>MainProc.ipf</code></td><td>Code source principal</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Procédure</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h4>Copier les fichiers</h4>
+                        <p>Copiez le dossier Gittributor avec <code>ATTRIBUTOR 2022.pxp</code> et <code>MainProc.ipf</code>.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h4>Lancer Igor Pro 64-bit</h4>
+                        <p>Double-cliquez sur <code>Igor64.exe</code>.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h4>Ouvrir le projet</h4>
+                        <p>Dans Igor Pro : <strong>Fichier → Ouvrir → Ouvrir Experiment...</strong><br>Sélectionnez <code>ATTRIBUTOR 2022.pxp</code></p>
+                    </div>
+                </div>
+
+                <h3>Premier lancement</h3>
+                <p>Les fenêtres suivantes s'ouvrent automatiquement : <strong>panel</strong>, <strong>elaborateur</strong>, <strong>agregateur</strong>, <strong>dmvm</strong>.</p>
+                
+                <div class="warning-box">
+                    <h4>Problème de chargement ?</h4>
+                    <p>Vérifiez que <code>MainProc.ipf</code> est dans le même dossier et qu'aucune erreur n'est affichée dans la fenêtre <em>History</em>.</p>
+                </div>
+            </section>
+
+            <!-- Interface -->
+            <section id="interface" class="section">
+                <h2>Interface Utilisateur</h2>
+                
+                <h3>Description de l'interface (d'après votre capture d'écran)</h3>
+                <div class="screenshot-grid">
+                    <div class="screenshot-item">
+                        <h4>Tableau Périodique (panel)</h4>
+                        <p><strong>Position</strong> : Bas à gauche<br><strong>Fonction</strong> : Grid de boutons pour chaque élément chimique (H, He, Li, C, N, O, etc.).</p>
+                    </div>
+                    <div class="screenshot-item">
+                        <h4>Élaborateur (elaborateur)</h4>
+                        <p><strong>Position</strong> : Centre<br><strong>Fonction</strong> : Spectre simulé (rouge/bleu) superposé aux données expérimentales (gris). Échelle log.</p>
+                    </div>
+                    <div class="screenshot-item">
+                        <h4>Agrégateur (agregateur)</h4>
+                        <p><strong>Position</strong> : Centre-droit<br><strong>Fonction</strong> : Compare plusieurs simulations isotopiques.</p>
+                    </div>
+                    <div class="screenshot-item">
+                        <h4>DMVM (dmvm)</h4>
+                        <p><strong>Position</strong> : Haut à droite<br><strong>Fonction</strong> : Défaut de masse (Mass defect) vs m/z. Analyse des écarts.</p>
+                    </div>
+                    <div class="screenshot-item">
+                        <h4>AdvancedManager</h4>
+                        <p><strong>Position</strong> : Haut à droite<br><strong>Fonction</strong> : Gestionnaire pour charger et gérer les spectres expérimentaux.</p>
+                    </div>
+                </div>
+
+                <h3>Fenêtres principales</h3>
+                <div class="interface-grid">
+                    <div class="interface-zone">
+                        <h4>Tableau Périodique</h4>
+                        <p>Grid de boutons organisés par période et groupe. Cliquez pour ajouter des atomes.</p>
+                        <ul>
+                            <li>Sélection des éléments chimiques</li>
+                            <li>Incrémentation/décrémentation du nombre d'atomes</li>
+                            <li>Réinitialisation de la molécule</li>
+                            <li>Réglage de la charge ionique</li>
+                        </ul>
+                    </div>
+                    <div class="interface-zone">
+                        <h4>Élaborateur</h4>
+                        <p>Graphique principal : spectre simulé vs données expérimentales.</p>
+                        <p><strong>Contrôles</strong> : Width, Shape (Gaussien/Lorentzien), Asym., FWHM.</p>
+                    </div>
+                    <div class="interface-zone">
+                        <h4>Agrégateur</h4>
+                        <p>Comparaison de plusieurs simulations superposées.</p>
+                        <p><strong>Menu</strong> : Use this list: Factors/Molbag</p>
+                    </div>
+                    <div class="interface-zone">
+                        <h4>DMVM</h4>
+                        <p>Analyse du défaut de masse (difference entre masse théorique et expérimentale).</p>
+                        <p><strong>Contrôles</strong> : ROI size, IntCum %, InPnts, Depth of tree</p>
+                    </div>
+                </div>
+
+                <h3>Boutons du panneau principal</h3>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Bouton</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td>Reset</td><td>Efface la molécule courante</td></tr>
+                            <tr><td>Add to agregator</td><td>Ajoute la simulation à l'agrégateur</td></tr>
+                            <tr><td>Add as factor</td><td>Ajoute la molécule à la liste des facteurs</td></tr>
+                            <tr><td>Recal</td><td>Calibre les données expérimentales</td></tr>
+                            <tr><td>Hard Recal</td><td>Calibration forcée</td></tr>
+                            <tr><td>doMSMS</td><td>Active le mode MS/MS</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Contrôles de configuration</h3>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Contrôle</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td>Isotopic combo probability</td><td>Seuil de probabilité pour les combinaisons isotopiques</td></tr>
+                            <tr><td>Display relative to maximum</td><td>Affichage relatif ou absolu</td></tr>
+                            <tr><td>Ion charge</td><td>Charge ionique pour le calcul des masses</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Workflow -->
+            <section id="workflow" class="section">
+                <h2>Workflow d'Utilisation</h2>
+                
+                <div class="steps">
+                    <div class="step"><div class="step-number">1</div><h4>Charger les données</h4><p>Utilisez l'<strong>AdvancedManager</strong> pour charger vos données.</p></div>
+                    <div class="step"><div class="step-number">2</div><h4>Construire la formule</h4><p>Cliquez sur les éléments dans le <strong>tableau périodique</strong>.</p></div>
+                    <div class="step"><div class="step-number">3</div><h4>Ajuster la charge</h4><p>Réglez la <strong>charge ionique</strong> si nécessaire.</p></div>
+                    <div class="step"><div class="step-number">4</div><h4>Visualiser</h4><p>La simulation s'affiche dans <strong>elaborateur</strong>.</p></div>
+                    <div class="step"><div class="step-number">5</div><h4>Calibrer</h4><p>Utilisez <strong>Recal</strong> ou <strong>Hard Recal</strong> si besoin.</p></div>
+                    <div class="step"><div class="step-number">6</div><h4>Ajouter à l'agrégateur</h4><p>Ajoutez chaque simulation à l'<strong>agregateur</strong>.</p></div>
+                </div>
+
+                <h3>Exemple : Identification d'une molécule</h3>
+                <p>Si vous avez un pic à m/z = 214.0848526295296 :</p>
+                <div class="steps">
+                    <div class="step"><div class="step-number">A</div><h4>Analyser le pic</h4><p>Dans <strong>dmvm</strong>, notez la masse exacte.</p></div>
+                    <div class="step"><div class="step-number">B</div><h4>Hypothèse initiale</h4><p>Essayez C10H10O4 : cliquez 10x C, 10x H, 4x O.</p></div>
+                    <div class="step"><div class="step-number">C</div><h4>Vérifier la masse</h4><p>La masse calculée doit être proche de 214.08485.</p></div>
+                    <div class="step"><div class="step-number">D</div><h4>Comparer le profil</h4><p>Dans <strong>elaborateur</strong>, comparez le profil isotopique.</p></div>
+                    <div class="step"><div class="step-number">E</div><h4>Affiner</h4><p>Essayez d'autres combinaisons : C11H6O3, C9H14O5, etc.</p></div>
+                    <div class="step"><div class="step-number">F</div><h4>Valider</h4><p>Le profil isotopique doit correspondre parfaitement.</p></div>
+                </div>
+
+                <div class="info-box">
+                    <h4>Conseils pour une identification rapide</h4>
+                    <ul>
+                        <li><strong>Commencez simple</strong> : Peu d'hétéroatomes au début</li>
+                        <li><strong>Utilisez le défaut de masse</strong> : Fenêtre <strong>dmvm</strong> pour distinguer les éléments</li>
+                        <li><strong>Comparez les intensités</strong> : Rapport M/M+1/M+2 caractéristique</li>
+                        <li><strong>Utilisez les filtres</strong> : Ajustez le seuil dans <strong>dmvm</strong></li>
+                        <li><strong>Sauvegardez</strong> : <em>Save Experiment</em> dans Igor Pro</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Tutorial -->
+            <section id="tutorial" class="section">
+                <h2>Tutoriel Pratique</h2>
+                <h3>Scénario : Identification d'un composé organique</h3>
+                <p>Vous avez un spectre de masse avec un pic principal à m/z ≈ 180.16.</p>
+
+                <div class="steps">
+                    <div class="step"><div class="step-number">1</div><h4>Charger le spectre</h4><p>Dans AdvancedManager, chargez votre fichier de données.</p></div>
+                    <div class="step"><div class="step-number">2</div><h4>Analyser le défaut de masse</h4><p>Dans <strong>dmvm</strong>, localisez le pic à m/z ≈ 180.16.</p></div>
+                    <div class="step"><div class="step-number">3</div><h4>Formuler des hypothèses</h4><p>Calculez rapidement : C10H12O3 = 180.0841 (très proche !)</p></div>
+                    <div class="step"><div class="step-number">4</div><h4>Tester C10H12O3</h4><p>Cliquez 10x C, 12x H, 3x O. Vérifiez dans <strong>elaborateur</strong>.</p></div>
+                    <div class="step"><div class="step-number">5</div><h4>Comparer</h4><p>Vérifiez que le profil isotopique correspond à vos données.</p></div>
+                </div>
+
+                <div class="info-box">
+                    <h4>Résultat</h4>
+                    <p>Si le profil correspond, vous avez identifié votre molécule ! Sinon, ajustez la formule et réessayez.</p>
+                </div>
+            </section>
+
+            <!-- Troubleshooting -->
+            <section id="troubleshooting" class="section">
+                <h2>Dépannage</h2>
+                
+                <h3>Problèmes courants</h3>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Problème</th><th>Cause</th><th>Solution</th></tr></thead>
+                        <tbody>
+                            <tr><td>.pxp ne s'ouvre pas</td><td>Version incompatible</td><td>Utilisez Igor Pro 64-bit</td></tr>
+                            <tr><td>Fenêtres ne s'ouvrent pas</td><td>MainProc.ipf manquant</td><td>Vérifiez le dossier</td></tr>
+                            <tr><td>Erreur "wave not found"</td><td>Onde non initialisée</td><td>Faites une simulation simple d'abord</td></tr>
+                            <tr><td>Simulation trop lente</td><td>Formule trop complexe</td><td>Augmentez le seuil de probabilité</td></tr>
+                            <tr><td>Masses ne correspondent pas</td><td>Mauvaise calibration</td><td>Utilisez Recal, vérifiez la charge</td></tr>
+                            <tr><td>Interface figée</td><td>Calcul en cours</td><td>Attendez ou réduisez la complexité</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Messages d'erreur fréquents</h3>
+                <div class="code-block">
+# "Function not found: genestringmol" → MainProc.ipf non chargé → Réouvrez le .pxp
+# "wave/T listbag not found" → Onde temporaire manquante → Cliquez Reset
+# "Index out of range" → Valeur trop grande → Vérifiez le nombre d'atomes
+# "Division by zero" → Charge nulle → Vérifiez la charge ionique
+                </div>
+
+                <h3>Astuces</h3>
+                <ul>
+                    <li><strong>Sauvegardez régulièrement</strong></li>
+                    <li><strong>Commencez simple</strong></li>
+                    <li><strong>Vérifiez les unités</strong> de vos données</li>
+                    <li><strong>Utilisez les seuils</strong> de probabilité</li>
+                    <li><strong>Fermez les fenêtres inutiles</strong></li>
+                </ul>
+
+                <div class="warning-box">
+                    <h4>Problème persistant ?</h4>
+                    <p>Consultez la fenêtre <em>History</em> d'Igor Pro et contactez le développeur avec les informations détaillées.</p>
+                </div>
+            </section>
+
+            <!-- License -->
+            <section id="license" class="section">
+                <h2>Licence et Contact</h2>
+                
+                <h3>Conditions d'utilisation</h3>
+                <div class="info-box">
+                    <p><strong>Licence :</strong> Non exclusive, non transférable, pour recherche uniquement. Mentionnez les droits sur toutes les copies.</p>
+                    <p><strong>Distribution :</strong> Ne pas distribuer, modifier, ou utiliser dans un environnement de service.</p>
+                    <p><strong>Propriété :</strong> Tous les droits de propriété intellectuelle restent la propriété du développeur.</p>
+                </div>
+
+                <h3>Contact</h3>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Rôle</th><th>Nom</th><th>Affiliation</th></tr></thead>
+                        <tbody>
+                            <tr><td>Développeur</td><td>François-Régis ORTHOUS-DAUNAY</td><td>IPAG (UMR5374), CNRS, UJF Grenoble, France</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>À propos de l'IPAG</h3>
+                <p><strong>Institut de Planétologie et d'Astrophysique de Grenoble</strong> (UMR 5274)</p>
+                <p>Tutelles : CNRS, Université Grenoble Alpes</p>
+                <p><strong>Domaines</strong> : Astrophysique, Planétologie, Sciences de la Terre et de l'Univers, Instrumentation</p>
+                <p><strong>Site web</strong> : <a href="https://ipag.osug.fr" target="_blank">https://ipag.osug.fr</a></p>
+
+                <h3>Historique</h3>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Version</th><th>Date</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td>2022</td><td>Septembre 2022</td><td>Split Calibration</td></tr>
+                            <tr><td>-</td><td>Juin 2021</td><td>Prior to delivery to Poitiers</td></tr>
+                            <tr><td>-</td><td>2014</td><td>Création initiale</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <h3>Attributor</h3>
+                    <p style="opacity: 0.8;">Outil expert en spectrométrie de masse</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#introduction">Introduction</a>
+                    <a href="#prequisites">Prérequis</a>
+                    <a href="#installation">Installation</a>
+                    <a href="#workflow">Workflow</a>
+                    <a href="#license">Licence</a>
+                </div>
+                <div class="copyright">
+                    © 2014-2026 François-Régis ORTHOUS-DAUNAY, IPAG, Grenoble, France
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="attributor-script.js"></script>
+</body>
+</html>
