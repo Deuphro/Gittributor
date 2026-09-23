@@ -404,6 +404,7 @@ function toggleLanguage() {
     
     // Log for debugging
     console.log('Language toggled to:', currentLanguage);
+    console.log('Translations loaded:', translations ? Object.keys(translations).length + ' keys' : 'none');
 }
 
 // Smooth scrolling for navigation
@@ -427,6 +428,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Load translations
     loadTranslations();
+    
+    // Log initial state for debugging
+    console.log('Initial language:', currentLanguage);
+    console.log('Page:', window.location.pathname || window.location.href);
     
     // Set up navigation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
