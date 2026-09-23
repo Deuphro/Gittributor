@@ -2,19 +2,62 @@
 // Version 2.0 - With Language Toggle
 
 // Global variables
+// Default to French to match attributor-guide.html which is in French
+// For attributor-guide-full.html (English), we'll detect and override below
 let currentLanguage = 'fr';
 let translations = {};
+
+// Inline translations to avoid CORS issues with file:// protocol
+const inlineTranslations = {
+  "meta": {
+    "version": "1.0",
+    "languages": ["fr", "en"],
+    "default": "en"
+  },
+  "nav": {
+    "fr": {
+      "introduction": "Introduction",
+      "prerequisites": "Prérequis",
+      "installation": "Installation",
+      "interface": "Interface",
+      "workflow": "Flux de travail",
+      "advanced": "Fonctionnalités avancées",
+      "algorithms": "Algorithmes",
+      "tutorial": "Tutoriel",
+      "troubleshooting": "Dépannage",
+      "license": "Licence"
+    },
+    "en": {
+      "introduction": "Introduction",
+      "prerequisites": "Prerequisites",
+      "installation": "Installation",
+      "interface": "Interface",
+      "workflow": "Workflow",
+      "advanced": "Advanced Features",
+      "algorithms": "Algorithms",
+      "tutorial": "Tutorial",
+      "troubleshooting": "Troubleshooting",
+      "license": "License"
+    }
+  }
+};
 
 // Load translations on page load
 async function loadTranslations() {
     try {
+        // Try to fetch from external file first
         const response = await fetch('translations.json');
         if (response.ok) {
             translations = await response.json();
-            applyTranslations();
+        } else {
+            // Fallback to inline translations
+            translations = inlineTranslations;
         }
+        applyTranslations();
     } catch (error) {
-        console.error('Error loading translations:', error);
+        console.log('Using inline translations (CORS issue with file:// protocol):', error);
+        translations = inlineTranslations;
+        applyTranslations();
     }
 }
 
@@ -135,25 +178,42 @@ function updateSection(sectionId, data) {
         case 'interface':
             updateInterfaceSection(section, data);
             break;
-        case 'workflow':
-            // Workflow section - basic translation support
-            break;
-        case 'advanced':
-            // Advanced section - basic translation support
-            break;
-        case 'algorithms':
-            // Algorithms section - basic translation support
-            break;
-        case 'tutorial':
-            // Tutorial section - basic translation support
-            break;
-        case 'troubleshooting':
-            // Troubleshooting section - basic translation support
-            break;
-        case 'license':
-            // License section - basic translation support
+        default:
+            // Generic translation for other sections
+            updateGenericSection(section, data);
             break;
     }
+}
+
+// Update generic section - handles basic text replacement
+function updateGenericSection(section, data) {
+    // Update all direct children text nodes
+    const children = section.children;
+    for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        
+        // Handle h2, h3, h4, p elements
+        if (child.tagName === 'H2' && data.title) {
+            child.textContent = data.title;
+        } else if (child.tagName === 'H3') {
+            // Try to find matching translation
+            const childId = child.id || child.textContent.toLowerCase().replace(/[^a-z0-9]/g, '_');
+            if (data[childId]) {
+                child.textContent = data[childId];
+            }
+        } else if (child.tagName === 'P' && data.content) {
+            child.textContent = data.content;
+        }
+    }
+    
+    // Update nested elements with class-based matching
+    const translatableElements = section.querySelectorAll('[data-i18n]');
+    translatableElements.forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (data[key]) {
+            el.textContent = data[key];
+        }
+    });
 }
 
 // Update introduction section
@@ -341,11 +401,25 @@ function toggleLanguage() {
     
     // Update document language attribute
     document.documentElement.lang = currentLanguage;
+    
+    // Log for debugging
+    console.log('Language toggled to:', currentLanguage);
 }
 
 // Smooth scrolling for navigation
 document.addEventListener('DOMContentLoaded', () => {
-    // Load saved language preference
+    // Auto-detect default language based on which page we're on
+    // attributor-guide.html is in French, attributor-guide-full.html is in English
+    const currentPath = window.location.pathname || window.location.href;
+    if (currentPath.includes('attributor-guide-full.html')) {
+        // Full guide is in English
+        currentLanguage = 'en';
+    } else if (currentPath.includes('attributor-guide.html')) {
+        // Simple guide is in French
+        currentLanguage = 'fr';
+    }
+    
+    // Load saved language preference (overrides auto-detect)
     const savedLang = localStorage.getItem('attributor-lang');
     if (savedLang && ['fr', 'en'].includes(savedLang)) {
         currentLanguage = savedLang;
